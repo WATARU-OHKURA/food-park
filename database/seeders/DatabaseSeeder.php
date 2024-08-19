@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Slider;
 use App\Models\User;
+use App\Models\WhyChooseUs;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,9 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(UserSeeder::class);
-
+        $this->call(WhyChooseUsTitleSeeder::class);
         Slider::factory(3)->create();
-
-        $this->call(WhyChooseUsSeeder::class);
+        WhyChooseUs::factory(3)->create();
     }
 }
