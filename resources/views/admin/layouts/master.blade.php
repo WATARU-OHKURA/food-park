@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/bootstrap-iconpicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/modules/summernote/summernote-bs4.css') }}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
@@ -69,6 +71,8 @@
     <script src="{{ asset('admin/assets/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
     <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('admin/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
 
     <!-- Template JS File -->
     <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>
@@ -124,26 +128,27 @@
                         $.ajax({
                             method: 'DELETE',
                             url: url,
-                            data: {_token: "{{ csrf_token() }}"},
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
                             success: function(response) {
                                 if (response.status === 'success') {
                                     toastr.success(response.message);
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your file has been deleted.",
+                                        icon: "success"
+                                    }).then(() => {
+                                        window.location.reload();
+                                    });
 
-                                    window.location.reload();
-
-                                }else if(response.status === 'error') {
+                                } else if (response.status === 'error') {
                                     toastr.error(response.message);
                                 }
                             },
                             error: function(error) {
                                 console.error(error);
                             }
-                        });
-
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
                         });
                     }
                 });
