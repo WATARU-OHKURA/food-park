@@ -4,42 +4,43 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductGallery;
-use App\Traits\FileUploadTrait;
+use App\Models\ProductOption;
+use App\Models\ProductSize;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
-class ProductGalleryController extends Controller
+class ProductSizeController extends Controller
 {
-    use FileUploadTrait;
     /**
      * Display a listing of the resource.
      */
     public function index(string $productId): View
     {
-        $images = ProductGallery::where('product_id', $productId)->get();
         $product = Product::findOrFail($productId);
-        return view('admin.product.gallery.index', compact('product', 'images'));
+        $sizes = ProductSize::where('product_id', $product->id)->get();
+        $options = ProductOption::where('product_id', $product->id)->get();
+        return view('admin.product.product-size.index', compact('product', 'sizes', 'options'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:3000'],
+            'name' => ['required', 'max:255'],
+            'price' => ['required', 'numeric'],
             'product_id' => ['required', 'integer'],
         ]);
 
-        $imagePath = $this->uploadImage($request, 'image');
+        $size = new ProductSize();
 
-        $gallery = new ProductGallery();
-        $gallery->product_id = $request->product_id;
-        $gallery->image = $imagePath;
-        $gallery->save();
+        $size->product_id = $request->product_id;
+        $size->name = $request->name;
+        $size->price = $request->price;
+        $size->save();
 
         toastr()->success('Created Successfully!');
 
@@ -52,9 +53,8 @@ class ProductGalleryController extends Controller
     public function destroy(string $id) : Response
     {
         try {
-            $image = ProductGallery::findOrFail($id);
-            $this->removeImage($image->image);
-            $image->delete();
+            $size = ProductSize::findOrFail($id);
+            $size->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'something went wrong']);
