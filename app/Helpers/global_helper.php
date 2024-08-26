@@ -2,7 +2,7 @@
 
 /** Create unique slug */
 if (!function_exists('generateUniqueSlug')) {
-    function generateUniqueSlug($model, $name): string
+    function generateUniqueSlug($model, $name, $existingSlug = null): string
     {
         $modelClass = "App\\Models\\$model";
 
@@ -11,8 +11,12 @@ if (!function_exists('generateUniqueSlug')) {
         }
 
         $slug = \Str::slug($name);
-        $count = 2;
 
+        if ($existingSlug && $slug === $existingSlug) {
+            return $existingSlug;
+        }
+
+        $count = 2;
         while ($modelClass::where('slug', $slug)->exists()) {
             $slug = \Str::slug($name) . '-' . $count;
             $count++;

@@ -23,7 +23,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(ProductDataTable $dataTable) : View|JsonResponse
+    public function index(ProductDataTable $dataTable): View|JsonResponse
     {
         return $dataTable->render('admin.product.index');
     }
@@ -40,7 +40,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductCreateRequest $request) : RedirectResponse
+    public function store(ProductCreateRequest $request): RedirectResponse
     {
         // Handle Image File
         $imagePath = $this->uploadImage($request, 'image');
@@ -87,16 +87,17 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductUpdateRequest $request, string $id) : RedirectResponse
+    public function update(ProductUpdateRequest $request, string $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
 
         // Handle Image File
         $imagePath = $this->uploadImage($request, 'image', $product->thumb_image);
-
         $product->thumb_image = !empty($imagePath) ? $imagePath : $product->thumb_image;
+
+        $product->slug = generateUniqueSlug('Product', $request->name, $product->slug);
+
         $product->name = $request->name;
-        $product->slug = generateUniqueSlug('Product', $request->name);
         $product->category_id = $request->category;
         $product->price = $request->price;
         $product->offer_price = $request->offer_price;
@@ -117,7 +118,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) : Response
+    public function destroy(string $id): Response
     {
         try {
             $product = Product::findOrFail($id);
