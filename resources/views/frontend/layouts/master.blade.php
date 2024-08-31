@@ -21,11 +21,16 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
 <body>
-
+    <div class="overlay-container d-none">
+        <div class="overlay">
+            <span class="loader"></span>
+        </div>
+    </div>
     <!--=============================
         TOPBAR START
     ==============================-->
@@ -134,6 +139,8 @@
         });
     </script>
 
+    {{-- Load global js  --}}
+    @include('frontend.layouts.global-scripts')
     @stack('scripts')
 </body>
 
