@@ -60,7 +60,19 @@ class CartController extends Controller
         }
     }
 
-    function gatCartProduct() {
+    function gatCartProduct()
+    {
         return view('frontend.layouts.ajax-files.sidebar-cart-item')->render();
+    }
+
+    function cartProductRemove($rowId)
+    {
+        try {
+            Cart::remove($rowId);
+
+            return response(['status' => 'success', 'message' => 'Item has been removed!'], 200);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'Sorry something went wrong!'], 500);
+        }
     }
 }

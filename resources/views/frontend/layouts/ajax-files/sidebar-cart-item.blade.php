@@ -1,4 +1,6 @@
 <input type="hidden" value="{{ cartTotal() }}" id="cart_total">
+<input type="hidden" value="{{ count(Cart::content()) }}" id="cart_poduct_count">
+
 @foreach (Cart::content() as $cartProduct)
     <li>
         <div class="menu_cart_img">
@@ -21,6 +23,6 @@
 
             <p class="price">{{ currencyPosition($cartProduct->price) }}</p>
         </div>
-        <span class="del_icon"><i class="fal fa-times"></i></span>
+        <span class="del_icon" onclick="removeProductFromSidebar('{{ $cartProduct->rowId }}')"><i class="fal fa-times"></i></span>
     </li>
 @endforeach
