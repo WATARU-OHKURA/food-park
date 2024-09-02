@@ -6,13 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Cart;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    // Add Product into cart
+    function index(): View
+    {
+        return view('frontend.pages.cart-view');
+    }
 
+    // Add Product into cart
     function addToCart(Request $request)
     {
         try {
@@ -75,5 +80,22 @@ class CartController extends Controller
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'Sorry something went wrong!'], 500);
         }
+    }
+
+    function cartQtyUpdate(Request $request): Response
+    {
+        try {
+            Cart::update($request->rowId, $request->qty);
+            return response(['product_total' => productTotal($request->rowId)], 200);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['status' => 'error', 'message' => 'Something went wrong. Please reload the page.'], 500);
+        }
+    }
+
+    function cartDestroy()
+    {
+        Cart::destroy();
+        return redirect()->back();
     }
 }

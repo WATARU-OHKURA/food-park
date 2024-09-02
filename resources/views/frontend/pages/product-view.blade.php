@@ -1,9 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('content')
-    <!--=============================
-                                                                                                                                BREADCRUMB START
-                                                                                                                            ==============================-->
+    <!--============BREADCRUMB START===========-->
     <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -17,14 +15,10 @@
             </div>
         </div>
     </section>
-    <!--=============================
-                                                                                                                                BREADCRUMB END
-                                                                                                                            ==============================-->
+    <!--============ BREADCRUMB END ===========-->
 
 
-    <!--=============================
-                                                                                                                                MENU DETAILS START
-                                                                                                                            ==============================-->
+    <!--====== MENU DETAILS START ===============-->
     <section class="fp__menu_details mt_115 xs_mt_85 mb_95 xs_mb_65">
         <div class="container">
             <div class="row">
