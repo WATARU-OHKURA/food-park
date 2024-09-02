@@ -48,6 +48,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="text" name="quantity" class="form-control" value="{{ old('quantity') }}">
+                    </div>
+
+                    <div class="form-group">
                         <label>Short Description</label>
                         <textarea class="form-control" name="short_description">{{ old('short_description') }}</textarea>
                     </div>

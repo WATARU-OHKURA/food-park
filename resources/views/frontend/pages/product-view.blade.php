@@ -128,8 +128,11 @@
                         </form>
 
                         <ul class="details_button_area d-flex flex-wrap">
-                            <li><a class="common_btn v_submit_button" href="#">add to cart</a></li>
-                            <li><a class="wishlist" href="#"><i class="far fa-heart"></i></a></li>
+                            @if ($product->quantity === 0)
+                                <li><a class="common_btn bg-danger" href="javascript:;">Stock out</a></li>
+                            @else
+                                <li><a class="wishlist" href="#"><i class="far fa-heart"></i></a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -138,8 +141,8 @@
                         <ul class="nav nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-home" type="button" role="tab"
-                                    aria-controls="pills-home" aria-selected="true">Description</button>
+                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                    aria-selected="true">Description</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
@@ -303,7 +306,8 @@
                                         </h5>
                                         <ul class="d-flex flex-wrap justify-content-center">
                                             <li>
-                                                <a href="javascript:;" onclick="loadProductModal('{{ $relatedProduct->id }}')">
+                                                <a href="javascript:;"
+                                                    onclick="loadProductModal('{{ $relatedProduct->id }}')">
                                                     <i class="fas fa-shopping-basket"></i>
                                                 </a>
                                             </li>

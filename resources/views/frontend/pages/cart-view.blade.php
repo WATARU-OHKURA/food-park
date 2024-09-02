@@ -97,13 +97,15 @@
                                             </td>
 
                                             <td class="fp__pro_icon">
-                                                <a href="#" class="remove_cart_product" data-id="{{ $product->rowId }}"><i class="far fa-times"></i></a>
+                                                <a href="#" class="remove_cart_product"
+                                                    data-id="{{ $product->rowId }}"><i class="far fa-times"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     @if (Cart::content()->count() === 0)
                                         <tr>
-                                            <td colspan="6" class="text-center d-inline" style="width: 100%;">Cart is empty!</td>
+                                            <td colspan="6" class="text-center d-inline" style="width: 100%;">Cart is
+                                                empty!</td>
                                         </tr>
                                     @endif
                                 </tbody>
@@ -141,11 +143,18 @@
                 inputField.val(currentValue + 1);
 
                 cartQtyUpdate(rowId, inputField.val(), function(response) {
-                    let productTotal = response.product_total;
-                    inputField.closest("tr")
-                        .find(".product_cart_total")
-                        .text("{{ currencyPosition(':productTotal') }}"
-                            .replace(":productTotal", productTotal));
+                    if (response.status === 'success') {
+                        inputField.val(response.qty);
+
+                        let productTotal = response.product_total;
+                        inputField.closest("tr")
+                            .find(".product_cart_total")
+                            .text("{{ currencyPosition(':productTotal') }}"
+                                .replace(":productTotal", productTotal));
+                    } else if (response.status === 'error') {
+                        inputField.val(response.qty);
+                        toastr.error(response.message);
+                    }
                 });
             });
 
@@ -154,19 +163,27 @@
                 let currentValue = parseInt(inputField.val());
                 let rowId = inputField.data("id");
 
-                if (inputField.val() > 1) {
+                if (currentValue > 1) {
                     inputField.val(currentValue - 1);
 
                     cartQtyUpdate(rowId, inputField.val(), function(response) {
-                        let productTotal = response.product_total;
-                        inputField.closest("tr")
-                            .find(".product_cart_total")
-                            .text("{{ currencyPosition(':productTotal') }}"
-                                .replace(":productTotal", productTotal));
-                    });
-                }
+                        inputField.val(response.qty);
 
+                        if (response.status === 'success') {
+                            let productTotal = response.product_total;
+                            inputField.closest("tr")
+                                .find(".product_cart_total")
+                                .text("{{ currencyPosition(':productTotal') }}"
+                                    .replace(":productTotal", productTotal));
+                        } else if (response.status === 'error') {
+                            toastr.error(response.message);
+                        }
+                    });
+                } else {
+                    toastr.warning('Quantity cannot be less than 1');
+                }
             });
+
 
             function cartQtyUpdate(rowId, qty, callback) {
                 $.ajax({
@@ -195,7 +212,7 @@
                 })
             }
 
-            $('.remove_cart_product').on('click', function(e){
+            $('.remove_cart_product').on('click', function(e) {
                 e.preventDefault();
                 let rowId = $(this).data('id');
                 removeCartProduct(rowId)

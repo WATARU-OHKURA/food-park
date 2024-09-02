@@ -74,7 +74,12 @@
             </div>
         </div>
         <ul class="details_button_area d-flex flex-wrap">
-            <li><button type="submit" class="common_btn modal_cart_botton">Add to Cart</button></li>
+            @if ($product->quantity === 0)
+                <li><button type="button" class="common_btn bg-danger">Out of stock</button></li>
+            @else
+                <li><button type="submit" class="common_btn modal_cart_botton">Add to Cart</button></li>
+            @endif
+
 
         </ul>
     </div>
@@ -162,7 +167,7 @@
                     $('.modal_cart_botton').attr('disabled', true);
                     $('.modal_cart_botton').html(
                         '<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span> Loading...'
-                        );
+                    );
                 },
                 success: function(response) {
                     updateSidebarCart();

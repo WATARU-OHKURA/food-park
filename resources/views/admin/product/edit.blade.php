@@ -49,6 +49,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="text" name="quantity" class="form-control" value="{{ $product->quantity }}">
+                    </div>
+
+                    <div class="form-group">
                         <label>Short Description</label>
                         <textarea class="form-control" name="short_description">{!! $product->short_description !!}</textarea>
                     </div>
