@@ -81,4 +81,9 @@
             },
         })
     }
+
+    /* GET CURRENT CART TOTAL AMOUNCT */
+    function getCartTotal(){
+        return parseFloat("{{ cartTotal() }}");
+    }
 </script>

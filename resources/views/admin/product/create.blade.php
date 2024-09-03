@@ -32,7 +32,8 @@
                         <select name="category" class="form-control select2" id="">
                             <option value="">select</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option @selected(old('category') == $category->id) value="{{ $category->id }}">{{ $category->name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -88,10 +89,11 @@
                     <div class="form-group">
                         <label>Status</label>
                         <select name="status" class="form-control" id="">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+                            <option @selected(old('status') == 1) value="1">Active</option>
+                            <option @selected(old('status') == 0) value="0">Inactive</option>
                         </select>
                     </div>
+
 
                     <button type="submit" class="btn btn-primary">Create</button>
                 </form>
