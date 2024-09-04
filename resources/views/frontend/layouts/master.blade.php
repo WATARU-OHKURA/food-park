@@ -137,6 +137,7 @@
     <script src="{{ asset('frontend/js/jquery.exzoom.js') }}"></script>
 
     <script src="{{ asset('frontend/js/toastr.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!--main/custom js-->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
