@@ -138,8 +138,8 @@
                                     <div class="col-md-6">
                                         <div class="fp__checkout_single_address">
                                             <div class="form-check">
-                                                <input class="form-check-input v_address" value="{{ $address->id }}" type="radio" name="flexRadioDefault"
-                                                    id="home">
+                                                <input class="form-check-input v_address" value="{{ $address->id }}"
+                                                    type="radio" name="flexRadioDefault" id="home">
                                                 <label class="form-check-label" for="home">
                                                     @if ($address->type === 'home')
                                                         <span class="icon"><i class="fas fa-home"></i> home</span>
@@ -175,7 +175,7 @@
                                 {{ currencyPosition(grandCartTotal()) }}
                             </span>
                         </p>
-                        <a class="common_btn" href=" #">checkout</a>
+                        <a class="common_btn" id="proceed_pmt_btn" href=" #">Proceed To Payment</a>
                     </div>
                 </div>
             </div>
@@ -185,36 +185,69 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function(){
-        $('.v_address').prop('checked', false);
-        
-        $('.v_address').on('click', function(){
-            let addressId = $(this).val();
-            let deliveryFee = $('#delivery_fee');
-            let grandTotal = $('#grand_total');
-            $.ajax({
-                type: "GET",
-                url: "{{ route('checkout.delivery-cal', ':id') }}".replace(':id', addressId),
-                beforeSend: function() {
-                    showLoader();
-                },
-                success: function (response) {
-                    deliveryFee.text("{{ currencyPosition(':amount') }}"
-                        .replace(":amount", response.deliveryFee));
+    <script>
+        $(document).ready(function() {
+            $('.v_address').prop('checked', false);
 
-                    grandTotal.text("{{ currencyPosition(':amount') }}"
-                        .replace(":amount", response.grand_total));
-                },
-                error: function(xhr, status, error) {
-                    let errorMessage = xhr.responseJSON.message;
-                    toastr.error(errorMessage);
-                },
-                complete: function(){
-                    hideLoader();
+            $('.v_address').on('click', function() {
+                let addressId = $(this).val();
+                let deliveryFee = $('#delivery_fee');
+                let grandTotal = $('#grand_total');
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('checkout.delivery-cal', ':id') }}".replace(':id', addressId),
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    success: function(response) {
+                        deliveryFee.text("{{ currencyPosition(':amount') }}"
+                            .replace(":amount", response.deliveryFee.toFixed(2)));
+
+                        grandTotal.text("{{ currencyPosition(':amount') }}"
+                            .replace(":amount", response.grand_total.toFixed(2)));
+                    },
+                    error: function(xhr, status, error) {
+                        let errorMessage = xhr.responseJSON.message;
+                        toastr.error(errorMessage);
+                    },
+                    complete: function() {
+                        hideLoader();
+                    }
+                });
+            })
+
+            $('#proceed_pmt_btn').on('click', function(e) {
+                e.preventDefault();
+                let address = $('.v_address:checked');
+                let id = address.val();
+
+                if (address.length === 0) {
+                    toastr.error('Please Select a Address!');
+                    return;
                 }
-            });
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('checkout.redirect') }}",
+                    data: {
+                        id: id
+                    },
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    success: function(response) {
+                        window.location.href = response.redirect_url;
+                    },
+                    error: function(xhr, status, error) {
+                        let errorMessage = xhr.responseJSON.message;
+                        toastr.error(errorMessage);
+                    },
+                    complete: function() {
+                        hideLoader();
+                    }
+                });
+            })
         })
-    })
-</script>
+    </script>
 @endpush
