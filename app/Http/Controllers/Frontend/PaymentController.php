@@ -32,6 +32,16 @@ class PaymentController extends Controller
         ));
     }
 
+    function paymentSuccess(): View
+    {
+        return view('frontend.pages.payment-success');
+    }
+
+    function paymentCancel(): View
+    {
+        return view('frontend.pages.payment-cancel');
+    }
+
     function makePayment(Request $request, OrderService $orderService)
     {
         $request->validate([
@@ -106,12 +116,14 @@ class PaymentController extends Controller
             ],
         ]);
 
-        if(isset($response['id']) && $response['id'] != NULL){
-            foreach($response['links'] as $link) {
-                if($link['rel'] === 'approve'){
+        if (isset($response['id']) && $response['id'] != NULL) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
                     return redirect()->away($link['href']);
                 }
             }
+        } else {
+            return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
 
@@ -123,7 +135,7 @@ class PaymentController extends Controller
 
         $response = $provider->capturePaymentOrder($request->token);
 
-        if(isset($response['status']) && $response['status'] === 'COMPLETED'){
+        if (isset($response['status']) && $response['status'] === 'COMPLETED') {
             $orderId = session()->get('order_id');
             $capture = $response['purchase_units'][0]['payments']['captures'][0];
             $paymentInfo = [
@@ -135,12 +147,14 @@ class PaymentController extends Controller
             OrderPaymentUpdateEvent::dispatch($orderId, $paymentInfo, 'PayPal');
             OrderPlacedNotificationEvent::dispatch($orderId);
 
-            dd('success');
+            return redirect()->route('payment.success');
+        } else {
+            return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
         }
     }
 
-    // function paypalCancel() {
-
-    // }
+    function paypalCancel()
+    {
+        return redirect()->route('payment.cancel');
+    }
 }
-
