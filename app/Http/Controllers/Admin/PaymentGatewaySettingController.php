@@ -39,7 +39,7 @@ class PaymentGatewaySettingController extends Controller
                 'paypal_logo' => ['nullable', 'image'],
             ]);
 
-            $imagePath = $this->uploadImage($request, 'paypal_logo');
+            $imagePath = $this->uploadImage($request, 'paypal_logo', config('gatewaySettings.paypal_logo'));
 
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'paypal_logo'],
@@ -78,7 +78,7 @@ class PaymentGatewaySettingController extends Controller
                 'stripe_logo' => ['nullable', 'image'],
             ]);
 
-            $imagePath = $this->uploadImage($request, 'stripe_logo');
+            $imagePath = $this->uploadImage($request, 'stripe_logo', config('gatewaySettings.stripe_logo'));
 
             PaymentGatewaySetting::updateOrCreate(
                 ['key' => 'stripe_logo'],
