@@ -2,8 +2,8 @@
 
 @section('content')
     <!--=============================
-                BREADCRUMB START
-            ==============================-->
+                        BREADCRUMB START
+                    ==============================-->
     <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -18,13 +18,13 @@
         </div>
     </section>
     <!--=============================
-                BREADCRUMB END
-            ==============================-->
+                        BREADCRUMB END
+                    ==============================-->
 
 
     <!--============================
-                PAYMENT PAGE START
-            ==============================-->
+                        PAYMENT PAGE START
+                    ==============================-->
     <section class="fp__payment_page mt_100 xs_mt_70 mb_100 xs_mb_70">
         <div class="container">
             <h2>Choose your Payment Gateway</h2>
@@ -32,24 +32,27 @@
                 <div class="col-lg-8">
                     <div class="fp__payment_area">
                         <div class="row">
-
-                            {{-- Paypal Icon --}}
-                            <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment payment-card" data-name="paypal"data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" href="#">
-                                    <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method"
-                                        class="img-fluid w-100">
-                                </a>
-                            </div>
-
-                            {{-- Stripe Icon --}}
-                            <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">
-                                <a class="fp__single_payment payment-card" data-name="stripe" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" href="#">
-                                    <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method"
-                                        class="img-fluid w-100">
-                                </a>
-                            </div>
+                            @if (config('gatewaySettings.paypal_status'))
+                                {{-- Paypal Icon --}}
+                                <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">
+                                    <a class="fp__single_payment payment-card" data-name="paypal"data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" href="#">
+                                        <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method"
+                                            class="img-fluid w-100">
+                                    </a>
+                                </div>
+                            @endif
+                            
+                            @if (config('gatewaySettings.stripe_status'))
+                                {{-- Stripe Icon --}}
+                                <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">
+                                    <a class="fp__single_payment payment-card" data-name="stripe" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" href="#">
+                                        <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method"
+                                            class="img-fluid w-100">
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -71,8 +74,8 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function(){
-            $('.payment-card').on('click', function(e){
+        $(document).ready(function() {
+            $('.payment-card').on('click', function(e) {
                 e.preventDefault();
                 let paymentGateway = $(this).data('name');
 
@@ -82,19 +85,19 @@
                     data: {
                         payment_gateway: paymentGateway
                     },
-                    beforeSend: function(){
+                    beforeSend: function() {
                         showLoader();
                     },
-                    success: function(response){
+                    success: function(response) {
                         window.location.href = response.redirect_url;
                     },
                     error: function(xhr, status, error) {
                         let errors = xhr.responseJSON.errors;
-                        $.each(errors, function(index, value){
+                        $.each(errors, function(index, value) {
                             toastr.error(value);
                         });
                     },
-                    complete: function(){
+                    complete: function() {
                         // hideLoader();
                     }
                 })
