@@ -32,10 +32,21 @@
                 <div class="col-lg-8">
                     <div class="fp__payment_area">
                         <div class="row">
+
+                            {{-- Paypal Icon --}}
                             <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">
                                 <a class="fp__single_payment payment-card" data-name="paypal"data-bs-toggle="modal"
                                     data-bs-target="#exampleModal" href="#">
-                                    <img src="{{ asset('frontend/images/pay_1.jpg') }}" alt="payment method"
+                                    <img src="{{ asset(config('gatewaySettings.paypal_logo')) }}" alt="payment method"
+                                        class="img-fluid w-100">
+                                </a>
+                            </div>
+
+                            {{-- Stripe Icon --}}
+                            <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">
+                                <a class="fp__single_payment payment-card" data-name="stripe" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" href="#">
+                                    <img src="{{ asset(config('gatewaySettings.stripe_logo')) }}" alt="payment method"
                                         class="img-fluid w-100">
                                 </a>
                             </div>
