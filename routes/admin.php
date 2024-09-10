@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
@@ -57,7 +58,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     /** Delivery Area Routes */
     Route::resource('delivery-area', DeliveryAreaController::class);
 
-
+    /** Order Routes  */
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
