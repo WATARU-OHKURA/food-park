@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Invoice</h1>
+            <h1>Order Preview</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active">
                     <a href="#">Dashboard</a>
@@ -149,8 +149,9 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-8">
-                                    <div class="col-md-4">
-                                        <form action="{{ route('admin.orders.status-update', $order->id) }}" method="POST">
+                                    <div class="col-md-4 d-print-none">
+                                        <form action="{{ route('admin.orders.status-update', $order->id) }}"
+                                            method="POST">
                                             @csrf
                                             @method('PUT')
 
@@ -158,7 +159,8 @@
                                                 <label for="">Payment Status</label>
                                                 <select class="form-control" name="payment_status" id="">
                                                     <option @selected($order->payment_status == 'pending') value="pending">Pending</option>
-                                                    <option @selected($order->payment_status == 'completed') value="completed">Completed</option>
+                                                    <option @selected($order->payment_status == 'completed') value="completed">Completed
+                                                    </option>
                                                 </select>
                                             </div>
 
@@ -166,8 +168,10 @@
                                                 <label for="">Order Status</label>
                                                 <select class="form-control" name="order_status" id="">
                                                     <option @selected($order->order_status == 'pending') value="pending">Pending</option>
-                                                    <option @selected($order->order_status == 'in_process') value="in_process">In Process</option>
-                                                    <option @selected($order->order_status == 'delivered') value="delivered">Delivered</option>
+                                                    <option @selected($order->order_status == 'in_process') value="in_process">In Process
+                                                    </option>
+                                                    <option @selected($order->order_status == 'delivered') value="delivered">Delivered
+                                                    </option>
                                                     <option @selected($order->order_status == 'declined') value="declined">Declined</option>
                                                 </select>
                                             </div>
@@ -218,7 +222,7 @@
                 <div class="text-md-right">
                     <div class="float-lg-left mb-lg-0 mb-3">
                     </div>
-                    <button class="btn btn-warning btn-icon icon-left">
+                    <button class="btn btn-warning btn-icon icon-left" id="print_btn">
                         <i class="fas fa-print"></i> Print
                     </button>
                 </div>
@@ -226,3 +230,28 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#print_btn').on('click', function() {
+                let printContents = $('.invoice-print').html();
+
+                let printWindow = window.open('', '', 'width=600,height=600');
+                printWindow.document.open();
+                printWindow.document.write('<html>');
+                printWindow.document.write(
+                    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">'
+                    );
+
+                printWindow.document.write('<body>');
+                printWindow.document.write(printContents);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+
+                printWindow.print();
+                printWindow.close();
+            })
+        })
+    </script>
+@endpush
