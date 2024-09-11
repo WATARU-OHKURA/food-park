@@ -124,5 +124,5 @@
                 })
             })
         })
-    </script>
+    </script> 
 @endpush

@@ -25,7 +25,8 @@ class OrderController extends Controller
         return view('admin.order.show', compact('order'));
     }
 
-    function getOrderStatus(string $id) : Response {
+    function getOrderStatus(string $id): Response
+    {
         $order = Order::select(['order_status', 'payment_status'])->findOrFail($id);
 
         return response($order);
@@ -43,12 +44,25 @@ class OrderController extends Controller
         $order->order_status = $request->order_status;
         $order->save();
 
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return response(['message' => 'Order Status Updated!']);
         } else {
             toastr()->success('Status Updated Successfully!');
 
             return redirect()->back();
+        }
+    }
+
+    function destroy(string $id): Response
+    {
+        try {
+            $order = Order::findOrFail($id);
+            $order->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['status' => 'error', 'message' => 'something went wrong']);
         }
     }
 }
