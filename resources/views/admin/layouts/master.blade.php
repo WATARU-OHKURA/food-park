@@ -83,7 +83,7 @@
         toastr.options.progressBar = true;
 
         @if ($errors->any())
-            @foreach ($errors->all() as $error)
+            @foreach ($errors->all() as error)
                 toastr.error("{{ $error }}")
             @endforeach
         @endif

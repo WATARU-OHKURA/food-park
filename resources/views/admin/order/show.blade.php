@@ -113,7 +113,7 @@
 
                                             $qty = $orderItem->qty;
                                             $unitPrice = $orderItem->unit_price;
-                                            $sizePrice = $size->price;
+                                            $sizePrice = $size->price ?? 0;
                                             $optionPrice = 0;
                                             foreach ($options as $optionItem) {
                                                 $optionPrice += $optionItem->price;
@@ -222,9 +222,10 @@
                 <div class="text-md-right">
                     <div class="float-lg-left mb-lg-0 mb-3">
                     </div>
-                    <button class="btn btn-warning btn-icon icon-left" id="print_btn">
+                    <a href="javascript:;" class="btn btn-warning btn-icon icon-left" id="print_btn"
+                        onclick="printInvoice()">
                         <i class="fas fa-print"></i> Print
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -233,25 +234,29 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#print_btn').on('click', function() {
-                let printContents = $('.invoice-print').html();
 
-                let printWindow = window.open('', '', 'width=600,height=600');
-                printWindow.document.open();
-                printWindow.document.write('<html>');
-                printWindow.document.write(
-                    '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">'
-                    );
+        function printInvoice() {
+            let printContents = $('.invoice-print').html();
+            let printWindow = window.open('', '', 'width=600,height=600');
 
-                printWindow.document.write('<body>');
-                printWindow.document.write(printContents);
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
+            printWindow.document.open();
+            printWindow.document.write('<html>');
+            printWindow.document.write(
+                '<link rel="stylesheet" href="{{ asset("admin/assets/modules/bootstrap/css/bootstrap.min.css") }}">'
+            );
+            printWindow.document.write(
+                '<script src="{{ asset("admin/assets/modules/bootstrap/js/bootstrap.min.js") }}"><\/script>');
+            printWindow.document.write('<body>');
+            printWindow.document.write(printContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
 
-                printWindow.print();
-                printWindow.close();
-            })
-        })
+            // リソースの読み込みが終わったことを待つために、少し遅延させる
+            printWindow.onload = function() {
+                printWindow.focus(); // フォーカスを新しいウィンドウに当てる
+                printWindow.print(); // 印刷ダイアログを表示
+                printWindow.close(); // 印刷後にウィンドウを閉じる
+            };
+        }
     </script>
 @endpush
