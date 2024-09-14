@@ -75,6 +75,9 @@ class DashboardController extends Controller
     function sendMessage(Request $request)
     {
         $message = $request->input('message');
-        RTOrderPlaceNotificationEvent::dispatch($message);
+
+        event(new RTOrderPlaceNotificationEvent($message));
+
+        return response()->json(['status' => 'Message Sent!']);
     }
 }

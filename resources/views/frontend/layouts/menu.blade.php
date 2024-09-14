@@ -59,7 +59,13 @@
                     </div>
                 </li>
                 <li>
-                    <a class="cart_icon"><i class="fas fa-shopping-basket"></i> <span class="cart_count">{{ count(Cart::content()) }}</span></a>
+                    <a class="cart_icon">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span class="cart_count">{{ count(Cart::content()) }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="cart_icon message_icon"><i class="fas fa-comment-alt-dots"></i> <span>7</span></a>
                 </li>
                 <li>
                     <a href="{{ route('login') }}"><i class="fas fa-user"></i></a>
@@ -103,7 +109,8 @@
 
                         <p class="price">{{ currencyPosition($cartProduct->price) }}</p>
                     </div>
-                    <span class="del_icon" onclick="removeProductFromSidebar('{{ $cartProduct->rowId }}')"><i class="fal fa-times"></i></span>
+                    <span class="del_icon" onclick="removeProductFromSidebar('{{ $cartProduct->rowId }}')"><i
+                            class="fal fa-times"></i></span>
                 </li>
             @endforeach
         </ul>

@@ -39,7 +39,7 @@ class RTOrderPlaceNotificationEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('order-Placed');
+        return new Channel('chat');
 
 
     }

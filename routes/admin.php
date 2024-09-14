@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Admin\OrderController;
@@ -70,6 +71,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::get('orders/status/{id}', [OrderController::class, 'getOrderStatus'])->name('orders.status');
     Route::put('orders/status-update/{id}', [OrderController::class, 'orderStatusUpdate'])->name('orders.status-update');
+
+    /** Chat Routes  */
+    Route::get('chat', [ChatController::class, 'index'])->name('chat.index');
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

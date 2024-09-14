@@ -91,7 +91,7 @@
             cluster: 'ap1'
         });
 
-        const channel = pusher.subscribe('order-Placed');
+        const channel = pusher.subscribe('chat');
         channel.bind('App\\Events\\RTOrderPlaceNotificationEvent', function(data) {
             console.log(data); // ここにオーダー情報が出力されるはず
         });
