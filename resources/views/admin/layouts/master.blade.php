@@ -22,17 +22,14 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-94034622-3');
+        var pusherKey = "{{ config('settings.pusher_key') }}";
+        var pusherCluster = "{{ config('settings.pusher_cluster') }}";
     </script>
     <!-- /END GA -->
+    @vite(['resources/js/app.js'])
 </head>
 
 <body>
@@ -83,10 +80,21 @@
         toastr.options.progressBar = true;
 
         @if ($errors->any())
-            @foreach ($errors->all() as error)
+            @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}")
             @endforeach
         @endif
+
+        // Pusher ////
+        Pusher.logToConsole = true;
+        const pusher = new Pusher('1977124716a08144517f', {
+            cluster: 'ap1'
+        });
+
+        const channel = pusher.subscribe('order-Placed');
+        channel.bind('App\\Events\\RTOrderPlaceNotificationEvent', function(data) {
+            console.log(data); // ここにオーダー情報が出力されるはず
+        });
     </script>
 
     <script>

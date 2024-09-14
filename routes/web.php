@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\RTOrderPlaceNotificationEvent;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Frontend\CouponController;
 use App\Http\Controllers\Frontend\CartController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 
@@ -78,6 +80,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('stripe/payment', [PaymentController::class, 'payWithStripe'])->name('stripe.payment');
     Route::get('stripe/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
     Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
+
+    Route::get('test', [DashboardController::class, 'sendMessage'])->name('sendMessage');
+
 
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\RTOrderPlaceNotificationEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\AddressCreateRequest;
 use App\Http\Requests\Frontend\AddressUpdateRequest;
@@ -69,5 +70,11 @@ class DashboardController extends Controller
         }
 
         return response(['status' => 'error', 'message' => 'something went wrong!']);
+    }
+
+    function sendMessage(Request $request)
+    {
+        $message = $request->input('message');
+        RTOrderPlaceNotificationEvent::dispatch($message);
     }
 }
