@@ -75,6 +75,31 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $sender_id
+ * @property int $receiver_id
+ * @property string $message
+ * @property int $seen
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereReceiverId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereSeen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereSenderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Chat whereUpdatedAt($value)
+ */
+	class Chat extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $code
  * @property int $quantity
@@ -102,6 +127,28 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Coupon whereUpdatedAt($value)
  */
 	class Coupon extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $product_id
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DailyOffer whereUpdatedAt($value)
+ */
+	class DailyOffer extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -214,6 +261,29 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem whereUpdatedAt($value)
  */
 	class OrderItem extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $message
+ * @property int $order_id
+ * @property int $seen
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereSeen($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereUpdatedAt($value)
+ */
+	class OrderPlacedNotification extends \Eloquent {}
 }
 
 namespace App\Models{
