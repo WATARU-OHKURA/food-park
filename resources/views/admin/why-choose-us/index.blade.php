@@ -5,15 +5,7 @@
         <div class="section-header">
             <h1>Why choose us</h1>
         </div>
-
-        {{-- <div class="card card-primary">
-            <div class="card-header">
-                <h4>All Items</h4>
-            </div>
-            <div class="card-body">
-
-            </div>
-        </div> --}}
+        
         <div class="card">
             <div class="card-body">
                 <div id="accordion">

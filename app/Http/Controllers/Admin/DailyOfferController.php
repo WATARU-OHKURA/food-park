@@ -6,6 +6,7 @@ use App\DataTables\DailyOfferDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\DailyOffer;
 use App\Models\Product;
+use App\Models\SectionTitle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,7 +19,9 @@ class DailyOfferController extends Controller
      */
     public function index(DailyOfferDataTable $dataTable): View|JsonResponse
     {
-        return $dataTable->render('admin.daily-offer.index');
+        $keys = ['daily_offer_top_title', 'daily_offer_main_title', 'daily_offer_sub_title'];
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
+        return $dataTable->render('admin.daily-offer.index', compact('titles'));
     }
 
     function productSearch(Request $request): Response
@@ -81,6 +84,26 @@ class DailyOfferController extends Controller
 
         toastr()->success('Updated Successfully!');
         return to_route('admin.daily-offer.index');
+    }
+
+    function updateTitle(Request $request)
+    {
+        $validatedData = $request->validate([
+            'daily_offer_top_title' => ['max:100'],
+            'daily_offer_main_title' => ['max:200'],
+            'daily_offer_sub_title' => ['max:500'],
+        ]);
+
+        foreach($validatedData as $key => $value) {
+            SectionTitle::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+
+        toastr()->success('Updated Successfully!');
+
+        return redirect()->back();
     }
 
     public function destroy(DailyOffer $daily_offer)
