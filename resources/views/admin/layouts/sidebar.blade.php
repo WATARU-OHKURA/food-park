@@ -169,12 +169,6 @@
                 </a>
             </li>
 
-            <li>
-                <a class="nav-link" href="{{ route('admin.why-choose-us.index') }}"><i class="far fa-square"></i>
-                    <span>Why Choose Us</span>
-                </a>
-            </li>
-
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i>
@@ -210,12 +204,15 @@
                 </ul>
             </li>
 
-            {{-- <li>
-                <a class="nav-link" href="{{ route('admin.chat.index') }}">
-                    <i class="far fa-square"></i>
-                    <span>Messages</span>
-                </a>
-            </li> --}}
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i>
+                    <span>Sections</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.why-choose-us.index') }}">Why Choose Us</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.banner-slider.index') }}">Banner Slider</a></li>
+                </ul>
+            </li>
 
             <li>
                 <a class="nav-link" href="{{ route('admin.setting.index') }}">
