@@ -6840,3 +6840,27 @@ CHECKOUT PAGE START
 .fp__massage_btn:hover {
     background: var(--colorBlack);
 }
+
+.fp__pagination ul li span {
+    width: 50px !important;
+    height: 50px !important;
+    padding: 0 !important;
+    line-height: 50px !important;
+    text-align: center !important;
+    font-size: 16px !important;
+    background: var(--colorWhite);
+    color: var(--paraColor) !important;
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    -ms-border-radius: 0 !important;
+    -o-border-radius: 0 !important;
+    margin: 0px 10px;
+}
+
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--colorWhite);
+    background-color: var(--colorPrimary);
+    border-color: var(--colorPrimary);
+}

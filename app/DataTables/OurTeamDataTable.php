@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Slider;
+use App\Models\OurTeam;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class SliderDataTable extends DataTable
+class OurTeamDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,29 +23,36 @@ class SliderDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
-                $edit = "<a href='" . route('admin.slider.edit', $query->id) . "' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
-                $delete = "<a href='" . route('admin.slider.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>";
+                $edit = "<a href='" . route('admin.our-team.edit', $query->id) . "' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
+                $delete = "<a href='" . route('admin.our-team.destroy', $query->id) . "' class='btn btn-danger ml-2 delete-item'><i class='fas fa-trash'></i></a>";
 
                 return $edit . $delete;
             })
             ->addColumn('image', function ($query) {
-                return '<img width="100px" src="' . asset($query->image) . '">';
+                return '<img width="70px" src="' . asset($query->image) . '">';
             })
             ->addColumn('status', function ($query) {
-                if ($query->status === 1) {
+                if ($query->status == 1) {
                     return '<span class="badge badge-primary">Active</span>';
                 } else {
                     return '<span class="badge badge-danger">Inactive</span>';
                 }
             })
-            ->rawColumns(['image', 'action', 'status'])
+            ->addColumn('show_at_home', function ($query) {
+                if ($query->show_at_home == 1) {
+                    return '<span class="badge badge-primary">Yes</span>';
+                } else {
+                    return '<span class="badge badge-danger">No</span>';
+                }
+            })
+            ->rawColumns(['action', 'image', 'status', 'show_at_home'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Slider $model): QueryBuilder
+    public function query(OurTeam $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -56,7 +63,7 @@ class SliderDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('slider-table')
+            ->setTableId('ourteam-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -78,10 +85,13 @@ class SliderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(60),
+            Column::make('id')->width(100),
             Column::make('image')->width(150),
+            Column::make('name'),
             Column::make('title'),
+            Column::make('show_at_home'),
             Column::make('status'),
+
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -95,6 +105,6 @@ class SliderDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Slider_' . date('YmdHis');
+        return 'OurTeam_' . date('YmdHis');
     }
 }

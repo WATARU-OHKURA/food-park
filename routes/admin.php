@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\OurTeamController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
@@ -81,6 +82,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     /** Banner Slider Routes  */
     Route::resource('banner-slider', BannerSliderController::class);
+
+    /** Our Team Routes  */
+    Route::resource('our-team', OurTeamController::class);
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

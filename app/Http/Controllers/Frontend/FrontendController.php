@@ -7,6 +7,7 @@ use App\Models\BannerSlider;
 use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
+use App\Models\OurTeam;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
@@ -28,6 +29,7 @@ class FrontendController extends Controller
         $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
         $dailyOffers = DailyOffer::with('product')->where('status', 1)->take(10)->get();
         $bannerSliders = BannerSlider::where('status', 1)->latest()->take(10)->get();
+        $ourTeam = OurTeam::where(['show_at_home' => 1, 'status' => 1])->latest()->take(10)->get();
 
         return view(
             'frontend.home.index',
@@ -38,19 +40,19 @@ class FrontendController extends Controller
                 'categories',
                 'dailyOffers',
                 'bannerSliders',
+                'ourTeam',
             )
         );
     }
 
     function getSectionTitles(): Collection
     {
-        // $keys = [
-        //     'why_choose_top_title',
-        //     'why_choose_main_title',
-        //     'why_choose_sub_title'
-        // ];
-        // return SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
         return SectionTitle::pluck('value', 'key');
+    }
+
+    function chef() : View {
+        $ourTeam = OurTeam::where(['status' => 1])->paginate(8);
+        return view('frontend.pages.chefs', compact(['ourTeam']));
     }
 
     function showProduct(string $slug): View
