@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
@@ -84,7 +85,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::resource('banner-slider', BannerSliderController::class);
 
     /** Our Team Routes  */
+    Route::put('our-team-title-update', [OurTeamController::class, 'updateTitle'])->name('our-team-title.update');
     Route::resource('our-team', OurTeamController::class);
+
+    /** App Download Routes  */
+    Route::get('app-download', [AppDownloadSectionController::class, 'index'])->name('app-download.index');
+    Route::post('app-download', [AppDownloadSectionController::class, 'store'])->name('app-download.store');
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

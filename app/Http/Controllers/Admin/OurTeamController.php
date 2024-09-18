@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OurTeamCreateRequest;
 use App\Http\Requests\Admin\OurTeamUpdateRequest;
 use App\Models\OurTeam;
+use App\Models\SectionTitle;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -21,15 +22,17 @@ class OurTeamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(OurTeamDataTable $dataTable) : View|JsonResponse
+    public function index(OurTeamDataTable $dataTable): View|JsonResponse
     {
-        return $dataTable->render('admin.our-team.index');
+        $keys = ['our_team_top_title', 'our_team_main_title', 'our_team_sub_title'];
+        $titles = SectionTitle::whereIn('key', $keys)->pluck('value', 'key');
+        return $dataTable->render('admin.our-team.index', compact('titles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         return view('admin.our-team.create');
     }
@@ -37,7 +40,7 @@ class OurTeamController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(OurTeamCreateRequest $request) : RedirectResponse
+    public function store(OurTeamCreateRequest $request): RedirectResponse
     {
         $imagePath = $this->uploadImage($request, 'image');
 
@@ -61,7 +64,7 @@ class OurTeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OurTeam $our_team) : View
+    public function edit(OurTeam $our_team): View
     {
         return view('admin.our-team.edit', compact('our_team'));
     }
@@ -69,7 +72,7 @@ class OurTeamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(OurTeamUpdateRequest $request, OurTeam $our_team) : RedirectResponse
+    public function update(OurTeamUpdateRequest $request, OurTeam $our_team): RedirectResponse
     {
         $imagePath = $this->uploadImage($request, 'image', $request->old_image);
 
@@ -89,10 +92,30 @@ class OurTeamController extends Controller
         return to_route('admin.our-team.index');
     }
 
+    function updateTitle(Request $request)
+    {
+        $validatedData = $request->validate([
+            'our_team_top_title' => ['max:100'],
+            'our_team_main_title' => ['max:200'],
+            'our_team_sub_title' => ['max:500'],
+        ]);
+
+        foreach ($validatedData as $key => $value) {
+            SectionTitle::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+
+        toastr()->success('Updated Successfully!');
+
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OurTeam $our_team) : Response
+    public function destroy(OurTeam $our_team): Response
     {
         try {
             $this->removeImage($our_team->image);

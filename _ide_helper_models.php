@@ -50,6 +50,62 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $image
+ * @property string $background
+ * @property string $title
+ * @property string $short_description
+ * @property string $play_store_link
+ * @property string $app_store_link
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereAppStoreLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereBackground($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection wherePlayStoreLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AppDownloadSection whereUpdatedAt($value)
+ */
+	class AppDownloadSection extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $title
+ * @property string $sub_title
+ * @property string $url
+ * @property string $banner
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereBanner($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereSubTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BannerSlider whereUrl($value)
+ */
+	class BannerSlider extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $slug
  * @property int $status
@@ -284,6 +340,41 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|OrderPlacedNotification whereUpdatedAt($value)
  */
 	class OrderPlacedNotification extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $image
+ * @property string $name
+ * @property string $title
+ * @property string|null $fb
+ * @property string|null $in
+ * @property string|null $x
+ * @property string|null $web
+ * @property int $show_at_home
+ * @property int $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereFb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereIn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereShowAtHome($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereWeb($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OurTeam whereX($value)
+ */
+	class OurTeam extends \Eloquent {}
 }
 
 namespace App\Models{

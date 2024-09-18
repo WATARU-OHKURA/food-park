@@ -212,6 +212,7 @@
                     <li><a class="nav-link" href="{{ route('admin.why-choose-us.index') }}">Why Choose Us</a></li>
                     <li><a class="nav-link" href="{{ route('admin.banner-slider.index') }}">Banner Slider</a></li>
                     <li><a class="nav-link" href="{{ route('admin.our-team.index') }}">Our members</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.app-download.index') }}">App Download Section</a></li>
                 </ul>
             </li>
 
