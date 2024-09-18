@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AppDownloadSection;
 use App\Models\BannerSlider;
 use App\Models\Category;
 use App\Models\Coupon;
@@ -30,6 +31,7 @@ class FrontendController extends Controller
         $dailyOffers = DailyOffer::with('product')->where('status', 1)->take(10)->get();
         $bannerSliders = BannerSlider::where('status', 1)->latest()->take(10)->get();
         $ourTeam = OurTeam::where(['show_at_home' => 1, 'status' => 1])->latest()->take(10)->get();
+        $appSection = AppDownloadSection::first();
 
         return view(
             'frontend.home.index',
@@ -41,6 +43,7 @@ class FrontendController extends Controller
                 'dailyOffers',
                 'bannerSliders',
                 'ourTeam',
+                'appSection',
             )
         );
     }

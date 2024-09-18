@@ -21,15 +21,17 @@
                                 <div id="image-preview" class="image-preview">
                                     <label for="image-upload" id="image-label">Choose File</label>
                                     <input type="file" name="image" id="image-upload" />
+                                    <input type="hidden" name="old_image" value="{{ @$appSection->image }}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Backgound</label>
-                                <div id="image-preview-2" class="image-preview">
+                                <div id="image-preview-2" class="image-preview bg-prev">
                                     <label for="image-upload-2" id="image-label-2">Choose File</label>
                                     <input type="file" name="background" id="image-upload-2" />
+                                    <input type="hidden" name="old_bg" value="{{ @$appSection->background }}">
                                 </div>
                             </div>
                         </div>
@@ -37,25 +39,25 @@
 
                     <div class="form-group">
                         <label for="">Title</label>
-                        <input type="text" class="form-control" name="title">
+                        <input type="text" class="form-control" name="title" value="{{ @$appSection->title }}">
                     </div>
 
                     <div class="form-group">
                         <label for="">Description</label>
-                        <textarea name="short_description" id="" class="form-control"></textarea>
+                        <textarea name="short_description" id="" class="form-control">{{ @$appSection->short_description }}</textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="">Play Store Link <code>(Leave empty for hide)</code></label>
-                        <input type="text" class="form-control" name="ps_link">
+                        <input type="text" class="form-control" name="ps_link" value="{{ @$appSection->play_store_link }}">
                     </div>
 
                     <div class="form-group">
                         <label for="">Apple Store Link <code>(Leave empty for hide)</code></label>
-                        <input type="text" class="form-control" name="as_link">
+                        <input type="text" class="form-control" name="as_link" value="{{ @$appSection->app_store_link }}">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
             </div>
         </div>
@@ -83,5 +85,19 @@
             no_label: false, // Default: false
             success_callback: null // Default: null
         });
+
+        $(document).ready(function(){
+            $('.image-preview').css({
+                'background-image': 'url({{ asset(@$appSection->image) }})',
+                'background-size': 'cover',
+                'background-position': 'center center'
+            })
+
+            $('.bg-prev').css({
+                'background-image': 'url({{ asset(@$appSection->background) }})',
+                'background-size': 'cover',
+                'background-position': 'center center'
+            })
+        })
     </script>
 @endpush
