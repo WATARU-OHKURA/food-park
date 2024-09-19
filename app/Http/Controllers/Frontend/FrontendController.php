@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AppDownloadSection;
 use App\Models\BannerSlider;
 use App\Models\Category;
+use App\Models\Counter;
 use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\OurTeam;
@@ -34,6 +35,7 @@ class FrontendController extends Controller
         $ourTeam = OurTeam::where(['show_at_home' => 1, 'status' => 1])->latest()->take(10)->get();
         $appSection = AppDownloadSection::first();
         $testimonials = Testimonial::where(['show_at_home' => 1, 'status' => 1])->get();
+        $counter = Counter::first();
 
         return view(
             'frontend.home.index',
@@ -47,6 +49,7 @@ class FrontendController extends Controller
                 'ourTeam',
                 'appSection',
                 'testimonials',
+                'counter',
             )
         );
     }

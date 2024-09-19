@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
@@ -93,6 +94,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     /** Testimonial Routes  */
     Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial-title.update');
     Route::resource('testimonial', TestimonialController::class);
+
+    /** Counter Routes  */
+    Route::get('counter', [CounterController::class, 'index'])->name('counter.index');
+    Route::put('counter', [CounterController::class, 'update'])->name('counter.update');
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

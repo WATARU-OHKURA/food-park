@@ -214,6 +214,7 @@
                     <li><a class="nav-link" href="{{ route('admin.our-team.index') }}">Our members</a></li>
                     <li><a class="nav-link" href="{{ route('admin.app-download.index') }}">App Download Section</a></li>
                     <li><a class="nav-link" href="{{ route('admin.testimonial.index') }}">Testimonial</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.counter.index') }}">Counter</a></li>
                 </ul>
             </li>
 
