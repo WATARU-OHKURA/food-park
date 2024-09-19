@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AppDownloadSectionController;
 use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
@@ -19,8 +17,8 @@ use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
-use App\Models\BannerSlider;
 use Illuminate\Support\Facades\Route;
 
 
@@ -91,6 +89,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     /** App Download Routes  */
     Route::get('app-download', [AppDownloadSectionController::class, 'index'])->name('app-download.index');
     Route::post('app-download', [AppDownloadSectionController::class, 'store'])->name('app-download.store');
+
+    /** Testimonial Routes  */
+    Route::put('testimonial-title-update', [TestimonialController::class, 'updateTitle'])->name('testimonial-title.update');
+    Route::resource('testimonial', TestimonialController::class);
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');
