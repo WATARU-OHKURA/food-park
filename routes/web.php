@@ -37,7 +37,12 @@ require __DIR__ . '/auth.php';
 
 // Show Home Page
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+
+/** Chef Page  */
 Route::get('/chef', [FrontendController::class, 'chef'])->name('chef');
+
+/** Testimonial  */
+Route::get('/testimonials', [FrontendController::class, 'testimonials'])->name('testimonials');
 
 // Show Product details page
 Route::get('/product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');

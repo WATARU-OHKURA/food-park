@@ -12,6 +12,7 @@ use App\Models\OurTeam;
 use App\Models\Product;
 use App\Models\SectionTitle;
 use App\Models\Slider;
+use App\Models\Testimonial;
 use App\Models\WhyChooseUs;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class FrontendController extends Controller
         $bannerSliders = BannerSlider::where('status', 1)->latest()->take(10)->get();
         $ourTeam = OurTeam::where(['show_at_home' => 1, 'status' => 1])->latest()->take(10)->get();
         $appSection = AppDownloadSection::first();
+        $testimonials = Testimonial::where(['show_at_home' => 1, 'status' => 1])->get();
 
         return view(
             'frontend.home.index',
@@ -44,6 +46,7 @@ class FrontendController extends Controller
                 'bannerSliders',
                 'ourTeam',
                 'appSection',
+                'testimonials',
             )
         );
     }
@@ -53,9 +56,16 @@ class FrontendController extends Controller
         return SectionTitle::pluck('value', 'key');
     }
 
-    function chef() : View {
+    function chef(): View
+    {
         $ourTeam = OurTeam::where(['status' => 1])->paginate(8);
         return view('frontend.pages.chefs', compact(['ourTeam']));
+    }
+
+    function testimonials() : View
+    {
+        $testimonials = Testimonial::where(['status' => 1])->paginate(9);
+        return view('frontend.pages.testimonial', compact('testimonials'));
     }
 
     function showProduct(string $slug): View
