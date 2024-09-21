@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AppDownloadSection;
 use App\Models\BannerSlider;
+use App\Models\Blog;
+use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Models\Category;
 use App\Models\Counter;
 use App\Models\Coupon;
@@ -15,7 +18,9 @@ use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\Testimonial;
 use App\Models\WhyChooseUs;
+use Auth;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
@@ -65,10 +70,51 @@ class FrontendController extends Controller
         return view('frontend.pages.chefs', compact(['ourTeam']));
     }
 
-    function testimonials() : View
+    function testimonials(): View
     {
         $testimonials = Testimonial::where(['status' => 1])->paginate(9);
         return view('frontend.pages.testimonial', compact('testimonials'));
+    }
+
+    function blog(): View
+    {
+        $blogs = Blog::with(['category', 'user'])->where('status', 1)->latest()->paginate(9);
+        return view('frontend.pages.blog', compact('blogs'));
+    }
+
+    function blogShow(string $slug): View
+    {
+        $blog = Blog::with(['user', 'category'])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        $latestBlogs = Blog::select('id', 'title', 'slug', 'created_at', 'image')
+            ->where('status', 1)
+            ->where('id', '!=', $blog->id)
+            ->latest()->take(5)->get();
+        $categories = BlogCategory::withCount(['blogs' => function ($query) {
+            $query->where('status', 1);
+        }])->where('status', 1)->get();
+
+        $nextBlog = Blog::select('id', 'title', 'slug', 'image')->where('id', '>', $blog->id)->orderBy('id', 'ASC')->first();
+        $previousBlog = Blog::select('id', 'title', 'slug', 'image')->where('id', '<', $blog->id)->orderBy('id', 'DESC')->first();
+
+        return view('frontend.pages.blog-show', compact('blog', 'latestBlogs', 'categories', 'nextBlog', 'previousBlog'));
+    }
+
+    function blogCommentStore(Request $request, string $blog_id) : RedirectResponse {
+        $request->validate([
+            'comment' => ['required', 'max:255']
+        ]);
+
+        Blog::findOrFail($blog_id);
+
+        $comment = new BlogComment();
+        $comment->blog_id = $blog_id;
+        $comment->user_id = Auth::user()->id;
+        $comment->comment = $request->comment;
+        $comment->save();
+
+        toastr()->success('Comment submitted successfully and waiting to approve.');
+
+        return redirect()->back();
     }
 
     function showProduct(string $slug): View
