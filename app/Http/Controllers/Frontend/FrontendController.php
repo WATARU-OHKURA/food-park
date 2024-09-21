@@ -24,6 +24,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View as ViewView;
 
 class FrontendController extends Controller
@@ -41,6 +42,9 @@ class FrontendController extends Controller
         $appSection = AppDownloadSection::first();
         $testimonials = Testimonial::where(['show_at_home' => 1, 'status' => 1])->get();
         $counter = Counter::first();
+        $latestBlogs = Blog::withCount(['comments' => function ($query) {
+            $query->where('status', 1);
+        }])->with(['category', 'user'])->where('status', 1)->latest()->take(3)->get();
 
         return view(
             'frontend.home.index',
@@ -55,6 +59,7 @@ class FrontendController extends Controller
                 'appSection',
                 'testimonials',
                 'counter',
+                'latestBlogs',
             )
         );
     }
@@ -76,10 +81,42 @@ class FrontendController extends Controller
         return view('frontend.pages.testimonial', compact('testimonials'));
     }
 
-    function blog(): View
+    function blog(Request $request): View
     {
-        $blogs = Blog::with(['category', 'user'])->where('status', 1)->latest()->paginate(9);
-        return view('frontend.pages.blog', compact('blogs'));
+        $validated = $request->validate([
+            'search' => 'nullable|string|max:255',
+            'category' => 'nullable|string|exists:blog_categories,slug',
+        ]);
+
+        // Generate a unique cache key based on the full request URL
+        $cacheKey = 'blogs_' . md5($request->fullUrl());
+
+        // Attempt to retrieve blogs from cache
+        $blogs = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($validated, $request) {
+            return Blog::withCount(['comments' => function ($query) {
+                $query->where('status', 1);
+            }])
+                ->with(['category', 'user'])
+                ->where('status', 1)
+                ->when($request->filled('search'), function ($query) use ($validated) {
+                    $searchTerm = '%' . $validated['search'] . '%';
+                    $query->where(function ($q) use ($searchTerm) {
+                        $q->where('title', 'like', $searchTerm)
+                            ->orWhere('description', 'like', $searchTerm);
+                    });
+                })
+                ->when($request->filled('category'), function ($query) use ($validated) {
+                    $query->whereHas('category', function ($q) use ($validated) {
+                        $q->where('slug', $validated['category']);
+                    });
+                })
+                ->latest()
+                ->paginate(9)
+                ->appends($request->only(['search', 'category']));
+        });
+
+        $categories = BlogCategory::where('status', 1)->get();
+        return view('frontend.pages.blog', compact('blogs', 'categories'));
     }
 
     function blogShow(string $slug): View
@@ -101,7 +138,8 @@ class FrontendController extends Controller
         return view('frontend.pages.blog-show', compact('blog', 'latestBlogs', 'categories', 'nextBlog', 'previousBlog', 'comments'));
     }
 
-    function blogCommentStore(Request $request, string $blog_id) : RedirectResponse {
+    function blogCommentStore(Request $request, string $blog_id): RedirectResponse
+    {
         $request->validate([
             'comment' => ['required', 'max:255']
         ]);

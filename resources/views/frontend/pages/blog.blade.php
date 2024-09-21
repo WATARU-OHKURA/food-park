@@ -2,9 +2,9 @@
 
 @section('content')
     <!--=============================
-                        BREADCRUMB START
-                    ==============================-->
-    <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
+                            BREADCRUMB START
+                        ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -18,28 +18,27 @@
         </div>
     </section>
     <!--=============================
-                        BREADCRUMB END
-                    ==============================-->
+                            BREADCRUMB END
+                        ==============================-->
 
 
     <!--=============================
-                        BLOG PAGE START
-                    ==============================-->
+                            BLOG PAGE START
+                        ==============================-->
     <section class="fp__blog_page fp__blog2 mt_120 xs_mt_65 mb_100 xs_mb_70">
         <div class="container">
-            <form class="fp__search_menu_form mb-4">
+            <form class="fp__search_menu_form mb-4" action="{{ route('blogs') }}" method="GET">
                 <div class="row">
                     <div class="col-xl-6 col-md-5">
-                        <input type="text" placeholder="Search...">
+                        <input type="text" placeholder="Search..." name="search" value="{{ @request()->search }}">
                     </div>
                     <div class="col-xl-4 col-md-4">
-                        <select class="nice-select">
-                            <option value="">select country</option>
-                            <option value="">bangladesh</option>
-                            <option value="">nepal</option>
-                            <option value="">japan</option>
-                            <option value="">korea</option>
-                            <option value="">thailand</option>
+                        <select class="nice-select" name="category">
+                            <option value="">All</option>
+                            @foreach ($categories as $category)
+                                <option @selected(@request()->category == $category->slug) value="{{ $category->slug }}">{{ $category->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-xl-2 col-md-3">
@@ -58,27 +57,31 @@
                                 <a class="category" href="#">{{ @$blog->category->name }}</a>
                                 <ul class="d-flex flex-wrap mt_15">
                                     <li><i class="fas fa-user"></i>{{ @$blog->user->name }}</li>
-                                    <li><i class="fas fa-calendar-alt"></i>{{ date('d m Y', strtotime($blog->created_at)) }}</li>
-                                    <li><i class="fas fa-comments"></i> 25 comment</li>
+                                    <li><i class="fas fa-calendar-alt"></i>{{ date('d m Y', strtotime($blog->created_at)) }}
+                                    </li>
+                                    <li><i class="fas fa-comments"></i> {{ $blog->comments_count }} comment</li>
                                 </ul>
                                 <a class="title" href="{{ route('blog.show', $blog->slug) }}">{!! truncate(@$blog->title, 30) !!}</a>
                             </div>
                         </div>
                     </div>
                 @endforeach
+                @if ($blogs->isEmpty())
+                    <h5 class="text-center">No Blog Found!</h5>
+                @endif
             </div>
             @if ($blogs->hasPages())
-            <div class="fp__pagination mt_60">
-                <div class="row">
-                    <div class="col-12">
-                        {{ $blogs->links() }}
+                <div class="fp__pagination mt_60">
+                    <div class="row">
+                        <div class="col-12">
+                            {{ $blogs->links() }}
+                        </div>
                     </div>
                 </div>
-            </div>
             @endif
         </div>
     </section>
     <!--=============================
-                        BLOG PAGE END
-                    ==============================-->
+                            BLOG PAGE END
+                        ==============================-->
 @endsection
