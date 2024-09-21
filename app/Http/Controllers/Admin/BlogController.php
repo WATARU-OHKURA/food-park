@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\BlogCommentDataTable;
 use App\DataTables\BlogDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogCreateRequest;
 use App\Http\Requests\Admin\BlogUpdateRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Traits\FileUploadTrait;
 use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class BlogController extends Controller
@@ -21,7 +24,7 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(BlogDataTable $dataTable) : View|JsonResponse
+    public function index(BlogDataTable $dataTable): View|JsonResponse
     {
         return $dataTable->render('admin.blog.index');
     }
@@ -29,7 +32,7 @@ class BlogController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         $categories = BlogCategory::all();
         return view('admin.blog.create', compact('categories'));
@@ -38,7 +41,7 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BlogCreateRequest $request) : RedirectResponse
+    public function store(BlogCreateRequest $request): RedirectResponse
     {
         $imagePath = $this->uploadImage($request, 'image');
 
@@ -57,13 +60,12 @@ class BlogController extends Controller
         toastr()->success('Created Successfully');
 
         return to_route('admin.blog.index');
-
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) : View
+    public function edit(string $id): View
     {
         $blog = Blog::findOrFail($id);
         $categories = BlogCategory::all();
@@ -108,5 +110,32 @@ class BlogController extends Controller
             return response(['status' => 'error', 'message' => 'something went wrong']);
         }
     }
-}
 
+    function blogComment(BlogCommentDataTable $dataTable)
+    {
+        return $dataTable->render('admin.blog.comments.index');
+    }
+
+    function commentStatusUpdate(string $id): RedirectResponse
+    {
+        $comment = BlogComment::find($id);
+
+        $comment->status = !$comment->status;
+        $comment->save();
+
+        toastr()->success('Updated Successfully!');
+
+        return redirect()->back();
+    }
+
+    function commentDestroy(string $id) : Response
+    {
+        try {
+            $comment = BlogComment::findOrFail($id);
+            $comment->delete();
+            return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        } catch (\Exception $e) {
+            return response(['status' => 'error', 'message' => 'something went wrong']);
+        }
+    }
+}
