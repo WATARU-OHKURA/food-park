@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
 use App\Http\Controllers\Admin\DeliveryAreaController;
+use App\Http\Controllers\Admin\FooterInfoController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OurTeamController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
@@ -109,6 +110,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('blogs/comments/{id}', [BlogController::class, 'commentStatusUpdate'])->name('blogs.comments.update');
     Route::delete('blogs/comments/{id}', [BlogController::class, 'commentDestroy'])->name('blogs.comments.destroy');
     Route::resource('blog', BlogController::class);
+
+    /** Footer Route  */
+    Route::get('footer-info', [FooterInfoController::class, 'index'])->name('footer-info.index');
+    Route::put('footer-info', [FooterInfoController::class, 'update'])->name('footer-info.update');
 
     /** Payment Gateway Setting Routes */
     Route::get('/payment-gateway-setting', [PaymentGatewaySettingController::class, 'index'])->name('payment-setting.index');

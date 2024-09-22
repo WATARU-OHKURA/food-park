@@ -223,9 +223,19 @@
                     <li><a class="nav-link" href="{{ route('admin.why-choose-us.index') }}">Why Choose Us</a></li>
                     <li><a class="nav-link" href="{{ route('admin.banner-slider.index') }}">Banner Slider</a></li>
                     <li><a class="nav-link" href="{{ route('admin.our-team.index') }}">Our members</a></li>
-                    <li><a class="nav-link" href="{{ route('admin.app-download.index') }}">App Download Section</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.app-download.index') }}">App Download Section</a>
+                    </li>
                     <li><a class="nav-link" href="{{ route('admin.testimonial.index') }}">Testimonial</a></li>
                     <li><a class="nav-link" href="{{ route('admin.counter.index') }}">Counter</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i>
+                    <span>Footer</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('admin.footer-info.index') }}">Footer Info</a></li>
                 </ul>
             </li>
 
