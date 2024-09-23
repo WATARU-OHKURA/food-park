@@ -10,6 +10,7 @@ use App\Models\Address;
 use App\Models\DeliveryArea;
 use App\Models\Order;
 use App\Models\ProductRating;
+use App\Models\Wishlist;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,8 @@ class DashboardController extends Controller
         $userAddresses = Address::where('user_id', Auth::user()->id)->get();
         $orders = Order::where('user_id', Auth::user()->id)->get();
         $reviews = ProductRating::where('user_id', auth()->user()->id)->get();
-
-        return view('frontend.dashboard.index', compact('deliveryAreas', 'userAddresses', 'orders', 'reviews'));
+        $wishlist = Wishlist::where('user_id', auth()->user()->id)->latest()->paginate(3);
+        return view('frontend.dashboard.index', compact('deliveryAreas', 'userAddresses', 'orders', 'reviews', 'wishlist'));
     }
 
     function createAddress(AddressCreateRequest $request)
