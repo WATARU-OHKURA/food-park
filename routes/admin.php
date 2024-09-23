@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\ProductOptionController;
+use App\Http\Controllers\Admin\ProductReviewController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
@@ -58,6 +59,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
 
     /** Product Size Routes */
     Route::resource('product-option', ProductOptionController::class);
+
+    /** Product Reviews Routes */
+    Route::get('product-reviews', [ProductReviewController::class, 'index'])->name('product-reviews.index');
+    Route::post('product-reviews', [ProductReviewController::class, 'updateStatus'])->name('product-reviews.update');
+    Route::delete('product-reviews/{id}', [ProductReviewController::class, 'destroy'])->name('product-reviews.destroy');
 
     /** Coupon Routes */
     Route::resource('coupon', CouponController::class);

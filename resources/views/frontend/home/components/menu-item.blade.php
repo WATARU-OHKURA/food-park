@@ -35,6 +35,8 @@
                     ])
                         ->orderBy('id', 'DESC')
                         ->take(8)
+                        ->withAvg('reviews', 'rating')
+                        ->withCount('reviews')
                         ->get();
                 @endphp
                 @foreach ($products as $product)
@@ -46,15 +48,16 @@
                                 <a class="category" href="#">{{ @$product->category->name }}</a>
                             </div>
                             <div class="fp__menu_item_text">
-                                <p class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <i class="far fa-star"></i>
-                                    <span>145</span>
-                                </p>
-                                <a class="title" href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
+                                @if ($product->reviews_avg_rating)
+                                    <p class="rating">
+                                        @for ($i = 1; $i <= $product->reviews_avg_rating; $i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                        <span>({{ $product->reviews_count }})</span>
+                                    </p>
+                                @endif
+                                <a class="title"
+                                    href="{{ route('product.show', $product->slug) }}">{{ $product->name }}</a>
                                 <h5 class="price">
                                     @if ($product->offer_price > 0)
                                         {{ currencyPosition($product->offer_price) }}
@@ -64,7 +67,8 @@
                                     @endif
                                 </h5>
                                 <ul class="d-flex flex-wrap justify-content-center">
-                                    <li><a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"><i class="fas fa-shopping-basket"></i></a></li>
+                                    <li><a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"><i
+                                                class="fas fa-shopping-basket"></i></a></li>
                                     <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                     <li><a href="#"><i class="far fa-eye"></i></a></li>
                                 </ul>

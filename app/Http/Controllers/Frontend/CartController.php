@@ -21,7 +21,6 @@ class CartController extends Controller
     // Add Product into cart
     function addToCart(Request $request)
     {
-        dd($request->all());
         $product = Product::with(['productSizes', 'productOptions'])->findOrFail($request->product_id);
         if ($product->quantity < $request->quantity) {
             throw ValidationException::withMessages(['Quantity is not available']);

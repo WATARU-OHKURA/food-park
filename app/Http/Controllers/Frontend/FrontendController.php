@@ -14,6 +14,7 @@ use App\Models\Coupon;
 use App\Models\DailyOffer;
 use App\Models\OurTeam;
 use App\Models\Product;
+use App\Models\ProductRating;
 use App\Models\SectionTitle;
 use App\Models\Slider;
 use App\Models\Testimonial;
@@ -25,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View as ViewView;
 
 class FrontendController extends Controller
@@ -159,11 +161,19 @@ class FrontendController extends Controller
 
     function showProduct(string $slug): View
     {
-        $product = Product::with(['productImages', 'productSizes', 'productOptions'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
+        $product = Product::with(['productImages', 'productSizes', 'productOptions'])->where(['slug' => $slug, 'status' => 1])
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->firstOrFail();
         $relatedProducts = Product::where('category_id', $product->category_id)
-            ->where('id', '!=', $product->id)->take(8)->latest()->get();
+            ->where('id', '!=', $product->id)->take(8)
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->latest()
+            ->get();
+        $reviews = ProductRating::where(['product_id' => $product->id, 'status' => 1])->paginate(30);
 
-        return view('frontend.pages.product-view', compact('product', 'relatedProducts'));
+        return view('frontend.pages.product-view', compact('product', 'relatedProducts', 'reviews'));
     }
 
     function loadProductModal($productId)
@@ -171,6 +181,44 @@ class FrontendController extends Controller
         $product = Product::with(['productSizes', 'productOptions'])->findOrFail($productId);
 
         return view('frontend.layouts.ajax-files.product-popup-modal', compact('product'))->render();
+    }
+
+    function productReviewStore(Request $request)
+    {
+        $request->validate([
+            'rating' => ['required', 'min:1', 'max:5', 'integer'],
+            'review' => ['required', 'max:500'],
+            'product_id' => ['required', 'integer'],
+        ]);
+
+        $user = Auth::user();
+
+        $hasPurchased = $user->orders()->whereHas('orderItems', function ($query) use ($request) {
+            $query->where('product_id', $request->product_id);
+        })
+            ->where('order_status', 'delivered')
+            ->get();
+
+        if (count($hasPurchased) == 0) {
+            throw ValidationException::withMessages(['Please Buy the product before submit a review!']);
+        }
+
+        $alreadyReviewed = ProductRating::where(['user_id' => $user->id, 'product_id' => $request->product_id])->exists();
+        if ($alreadyReviewed) {
+            throw ValidationException::withMessages(['You already reviewed this product']);
+        }
+
+        $review = new ProductRating();
+        $review->user_id = $user->id;
+        $review->product_id = $request->product_id;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->status = 0;
+        $review->save();
+
+        toastr()->success('Review addded successfully and waiting to approve');
+
+        return redirect()->back();
     }
 
     function applyCoupon(Request $request)
