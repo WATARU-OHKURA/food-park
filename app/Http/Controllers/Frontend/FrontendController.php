@@ -159,6 +159,44 @@ class FrontendController extends Controller
         return redirect()->back();
     }
 
+    function products(Request $request): View
+    {
+        $validated = $request->validate([
+            'search' => 'nullable|string|max:255',
+            'category' => 'nullable|string|exists:categories,slug',
+        ]);
+
+        // Generate a unique cache key based on the full request URL
+        $cacheKey = 'categories_' . md5($request->fullUrl());
+
+        // Attempt to retrieve blogs from cache
+        $products = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($validated, $request) {
+            return Product::with(['category',])
+                ->where('status', 1)
+                ->when($request->filled('search'), function ($query) use ($validated) {
+                    $searchTerm = '%' . $validated['search'] . '%';
+                    $query->where(function ($q) use ($searchTerm) {
+                        $q->where('name', 'like', $searchTerm)
+                            ->orWhere('long_description', 'like', $searchTerm);
+                    });
+                })
+                ->when($request->filled('category'), function ($query) use ($validated) {
+                    $query->whereHas('category', function ($q) use ($validated) {
+                        $q->where('slug', $validated['category']);
+                    });
+                })
+                ->latest()
+                ->withAvg('reviews', 'rating')
+                ->withCount('reviews')
+                ->paginate(12)
+                ->appends($request->only(['search', 'category']));
+        });
+
+        $categories = Category::where('status', 1)->get();
+
+        return view('frontend.pages.product', compact('products', 'categories'));
+    }
+
     function showProduct(string $slug): View
     {
         $product = Product::with(['productImages', 'productSizes', 'productOptions'])->where(['slug' => $slug, 'status' => 1])

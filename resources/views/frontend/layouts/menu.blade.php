@@ -10,13 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">about</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="menu.html">menu</a>
+                    <a class="nav-link" href="{{ route('products.index') }}">Products</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('chef') }}">chefs</a>
@@ -24,9 +21,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">pages <i class="far fa-angle-down"></i></a>
                     <ul class="droap_menu">
-                        <li><a href="menu_details.html">menu details</a></li>
-                        <li><a href="blog_details.html">blog details</a></li>
-                        <li><a href="cart_view.html">cart view</a></li>
+                        <li><a href="{{ route('cart.index') }}">cart view</a></li>
                         <li><a href="check_out.html">checkout</a></li>
                         <li><a href="payment.html">payment</a></li>
                         <li><a href="testimonial.html">testimonial</a></li>
