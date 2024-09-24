@@ -4,7 +4,7 @@
     <!--=============================
                         BREADCRUMB START
                     ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
+    <section class="k" style="background: url({{ asset(config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -42,7 +42,7 @@
                                     </a>
                                 </div>
                             @endif
-                            
+
                             @if (config('gatewaySettings.stripe_status'))
                                 {{-- Stripe Icon --}}
                                 <div class="col-lg-3 col-6 col-sm-4 col-md-3 wow fadeInUp" data-wow-duration="1s">

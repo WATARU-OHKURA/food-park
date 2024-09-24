@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Services\SettingService;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SettingController extends Controller
 {
+    use FileUploadTrait;
+
     function index(): View
     {
         return view('admin.setting.index');
@@ -54,6 +57,34 @@ class SettingController extends Controller
                 ['key' => $key],
                 ['value' => $value],
             );
+        }
+
+        $settingsService = app(SettingService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Updated Successfully!');
+
+        return redirect()->back();
+    }
+
+    function updateLogoSetting(Request $request) : RedirectResponse {
+        $validatedData = $request->validate([
+            'logo' => ['nullable', 'image', 'max:1000'],
+            'footer_logo' => ['nullable', 'image', 'max:1000'],
+            'favicon' => ['nullable', 'image', 'max:1000'],
+            'breadcrumb' => ['nullable', 'image', 'max:1000'],
+        ]);
+
+        foreach($validatedData as $key => $value){
+            $imagePath = $this->uploadImage($request, $key, );
+            if(!empty($imagePath)){
+                $oldPath = config('settings.'.$key);
+                $this->removeImage($oldPath);
+                Setting::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $imagePath],
+                );
+            }
         }
 
         $settingsService = app(SettingService::class);
