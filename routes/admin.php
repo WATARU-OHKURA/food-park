@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BannerSliderController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClearDatabaseController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DailyOfferController;
@@ -131,4 +132,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::put('/general-setting', [SettingController::class, 'updateGeneralSetting'])->name('general-setting.update');
     Route::put('/pusher-setting', [SettingController::class, 'updatePusherSetting'])->name('pusher-setting.update');
     Route::put('/logo-setting', [SettingController::class, 'updateLogoSetting'])->name('logo-setting.update');
+
+    /** Clear Database Routes */
+    Route::get('/clear-database', [ClearDatabaseController::class, 'index'])->name('clear-database.index');
+    Route::post('/clear-database', [ClearDatabaseController::class, 'clearDB'])->name('clear-database.destroy');
 });
