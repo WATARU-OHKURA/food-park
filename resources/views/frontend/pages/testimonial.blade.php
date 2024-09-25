@@ -2,8 +2,8 @@
 
 @section('content')
     <!--=============================
-                    BREADCRUMB START
-                ==============================-->
+                        BREADCRUMB START
+                    ==============================-->
     <section class="fp__breadcrumb" style="background: url({{ asset(config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
@@ -18,13 +18,13 @@
         </div>
     </section>
     <!--=============================
-                    BREADCRUMB END
-                ==============================-->
+                        BREADCRUMB END
+                    ==============================-->
 
 
     <!--=============================
-                    TESTIMONIAL PAGE START
-                ==============================-->
+                        TESTIMONIAL PAGE START
+                    ==============================-->
     <section class="fp__testimonial_page mt_95 xs_mt_65 mb_100 xs_mb_70">
         <div class="container">
             <div class="row">
@@ -65,6 +65,6 @@
         </div>
     </section>
     <!--=============================
-                    TESTIMONIAL PAGE END
-                ==============================-->
+                        TESTIMONIAL PAGE END
+                    ==============================-->
 @endsection
