@@ -24,7 +24,21 @@ class DashboardController extends Controller
         $orders = Order::where('user_id', Auth::user()->id)->get();
         $reviews = ProductRating::where('user_id', auth()->user()->id)->get();
         $wishlist = Wishlist::where('user_id', auth()->user()->id)->latest()->paginate(3);
-        return view('frontend.dashboard.index', compact('deliveryAreas', 'userAddresses', 'orders', 'reviews', 'wishlist'));
+        $totalOrders = Order::where('user_id', auth()->user()->id)->count();
+        $totalCompletedOrders = Order::where('user_id', auth()->user()->id)->where('order_status', 'delivered')->count();
+        $totalCancelOrders = Order::where('user_id', auth()->user()->id)->where('order_status', 'declined')->count();
+
+
+        return view('frontend.dashboard.index', compact(
+            'deliveryAreas',
+            'userAddresses',
+            'orders',
+            'reviews',
+            'wishlist',
+            'totalOrders',
+            'totalCompletedOrders',
+            'totalCancelOrders'
+        ));
     }
 
     function createAddress(AddressCreateRequest $request)

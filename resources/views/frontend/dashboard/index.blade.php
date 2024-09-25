@@ -4,7 +4,7 @@
     <!--=============================
                                 BREADCRUMB START
                             ==============================-->
-    <section class="fp__breadcrumb" style="background: url(images/counter_bg.jpg);">
+    <section class="fp__breadcrumb" style="background: url({{ asset(config('settings.breadcrumb')) }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -64,16 +64,10 @@
                                     aria-controls="v-pills-messages2" aria-selected="false"><span><i
                                             class="far fa-heart"></i></span> wishlist</button>
 
-                                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-messages" type="button" role="tab"
-                                    aria-controls="v-pills-messages" aria-selected="false"><span><i
+                                <button class="nav-link" id="v-pills-review-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-review" type="button" role="tab"
+                                    aria-controls="v-pills-review" aria-selected="false"><span><i
                                             class="fas fa-star"></i></span> Reviews</button>
-
-                                <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                                    data-bs-target="#v-pills-settings" type="button" role="tab"
-                                    aria-controls="v-pills-settings" aria-selected="false"><span><i
-                                            class="far fa-comment-dots"></i></span> Message <b>7</b></button>
-
 
                                 <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                                     data-bs-target="#v-pills-settings" type="button" role="tab"
@@ -86,7 +80,7 @@
                                     <button class="nav-link"
                                         onclick="event.preventDefault();
                                                 this.closest('form').submit();"
-                                        type="button"><span> <i class="fas fa-sign-out-alt"></i>
+                                        type="button" style="width: 100%"><span> <i class="fas fa-sign-out-alt"></i>
                                         </span> Logout
                                     </button>
                                 </form>
@@ -102,8 +96,6 @@
                                 @include('frontend.dashboard.sections.address-section')
 
                                 @include('frontend.dashboard.sections.order-section')
-
-                                @include('frontend.dashboard.sections.message')
 
                                 @include('frontend.dashboard.sections.wishlist')
 
