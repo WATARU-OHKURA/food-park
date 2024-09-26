@@ -101,10 +101,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('stripe/success', [PaymentController::class, 'stripeSuccess'])->name('stripe.success');
     Route::get('stripe/cancel', [PaymentController::class, 'stripeCancel'])->name('stripe.cancel');
 
-    Route::get('/chat', function () {
-        return view('chat');
-    });
-
     Route::post('/send-message', [DashboardController::class, 'sendMessage']);
 
 

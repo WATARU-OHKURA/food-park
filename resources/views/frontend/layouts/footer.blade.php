@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="fp__footer_bottom_text d-flex flex-wrap justify-content-between">
-                        @if ($footerInfo->copyright)
+                        @if (@$footerInfo->copyright)
                             <p>{{ @$footerInfo->copyright }}</p>
                         @endif
                         <ul class="d-flex flex-wrap">
