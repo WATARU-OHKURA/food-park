@@ -29,21 +29,25 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // 'settings' テーブルが存在する場合のみアクセス
-        // if (Schema::hasTable('settings')) {
-        //     $settings = DB::table('settings')->pluck('value', 'key');
-        //     // $settings を使用して必要な処理を行う
+        if (Schema::hasTable('settings')) {
+            $settings = DB::table('settings')->pluck('value', 'key');
+            // $settings を使用して必要な処理を行う
 
-        //     $keys = ['pusher_app_id', 'pusher_cluster', 'pusher_key', 'pusher_secret'];
-        //     $pusherConf = Setting::whereIn('key', $keys)->pluck('value', 'key');
+            $keys = ['pusher_app_id', 'pusher_cluster', 'pusher_key', 'pusher_secret'];
+            $pusherConf = Setting::whereIn('key', $keys)->pluck('value', 'key');
 
-        //     config(['broadcasting.connections.pusher.key' => $pusherConf['pusher_key']]);
-        //     config(['broadcasting.connections.pusher.secret' => $pusherConf['pusher_secret']]);
-        //     config(['broadcasting.connections.pusher.app_id' => $pusherConf['pusher_app_id']]);
-        //     config(['broadcasting.connections.pusher.options.cluster' => $pusherConf['pusher_cluster']]);
-        // }
+            config(['broadcasting.connections.pusher.key' => $pusherConf['pusher_key']]);
+            config(['broadcasting.connections.pusher.secret' => $pusherConf['pusher_secret']]);
+            config(['broadcasting.connections.pusher.app_id' => $pusherConf['pusher_app_id']]);
+            config(['broadcasting.connections.pusher.options.cluster' => $pusherConf['pusher_cluster']]);
+        }
+
+        // キャッシュドライバが 'database' の場合のみ 'cache' テーブルを確認
+        if (config('cache.default') === 'database' && Schema::hasTable('cache')) {
+            // 'cache' テーブルに対する操作があればここに追加
+            // 例: キャッシュデータのプリロードなど
+        }
 
         Paginator::useBootstrap();
-
     }
 }
-
