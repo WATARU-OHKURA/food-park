@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>{{ config('settings.site_name') }} | Dashboard</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('admin/assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -45,8 +45,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
-                        Nauval Azhar</a>
+                    Copyright &copy; {{ date('Y') }} <div class="bullet"></div> Developed By <a href="#">WATARU OHKURA</a>
                 </div>
                 <div class="footer-right">
 
@@ -84,17 +83,6 @@
                 toastr.error("{{ $error }}")
             @endforeach
         @endif
-
-        // Pusher ////
-        Pusher.logToConsole = true;
-        const pusher = new Pusher('1977124716a08144517f', {
-            cluster: 'ap1'
-        });
-
-        const channel = pusher.subscribe('chat');
-        channel.bind('App\\Events\\RTOrderPlaceNotificationEvent', function(data) {
-            console.log(data); // ここにオーダー情報が出力されるはず
-        });
     </script>
 
     <script>
@@ -107,14 +95,6 @@
             no_label: false, // Default: false
             success_callback: null // Default: null
         });
-
-        // Ser csrf ajax header
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     }
-        // });
-
 
         $(document).ready(function() {
 

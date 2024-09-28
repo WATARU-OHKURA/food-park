@@ -132,3 +132,16 @@ if (!function_exists('truncate')) {
         return \Str::limit($string, $limit, '...');
     }
 }
+
+if (!function_exists('setActive')) {
+
+    function setActive(array $routes)
+    {
+        foreach($routes as $route) {
+            if (request()->routeIs($route)) {
+                return 'active';
+            }
+        }
+        return '';
+    }
+}
