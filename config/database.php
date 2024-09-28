@@ -23,7 +23,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
             'database' => isset($JAWSDB['path']) ? ltrim($JAWSDB['path'], '/') : env('DB_DATABASE', 'forge'),
             'username' => isset($JAWSDB['user']) ? $JAWSDB['user'] : env('DB_USERNAME', 'forge'),
             'password' => isset($JAWSDB['pass']) ? $JAWSDB['pass'] : env('DB_PASSWORD', ''),
-            
+
 
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
