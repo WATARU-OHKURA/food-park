@@ -37,7 +37,10 @@ class FrontendController extends Controller
 
         $sliders = Slider::where('status', 1)->get();
         $whyChooseUs = WhyChooseUs::where('status', 1)->get();
-        $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
+
+        // $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
+        $categories = Category::where(['show_at_home' => 1, 'status' => 1])->with('products')->get();
+
         $dailyOffers = DailyOffer::with('product')->where('status', 1)->take(10)->get();
         $bannerSliders = BannerSlider::where('status', 1)->latest()->take(10)->get();
         $ourTeam = OurTeam::where(['show_at_home' => 1, 'status' => 1])->latest()->take(10)->get();

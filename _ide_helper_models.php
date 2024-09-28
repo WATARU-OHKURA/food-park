@@ -203,6 +203,8 @@ namespace App\Models{
  * @property int $show_at_home
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
@@ -571,7 +573,7 @@ namespace App\Models{
  * @property string $short_description
  * @property string $long_description
  * @property float $price
- * @property float|null $offer_price
+ * @property float $offer_price
  * @property int $quantity
  * @property string|null $sku
  * @property string|null $seo_title

@@ -19,7 +19,9 @@
                 <div class="menu_filter d-flex flex-wrap justify-content-center">
                     <button class=" active" data-filter="*">all menu</button>
                     @foreach ($categories as $category)
-                        <button data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
+                        @if ($category->products->isNotEmpty())
+                            <button data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -69,8 +71,10 @@
                                 <ul class="d-flex flex-wrap justify-content-center">
                                     <li><a href="javascript:;" onclick="loadProductModal('{{ $product->id }}')"><i
                                                 class="fas fa-shopping-basket"></i></a></li>
-                                    <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i class="fal fa-heart"></i></a></li>
-                                    <li><a href="{{ route('product.show', $product->slug) }}"><i class="far fa-eye"></i></a></li>
+                                    <li><a href="javascript:;" onclick="addToWishlist('{{ $product->id }}')"><i
+                                                class="fal fa-heart"></i></a></li>
+                                    <li><a href="{{ route('product.show', $product->slug) }}"><i
+                                                class="far fa-eye"></i></a></li>
                                 </ul>
                             </div>
                         </div>

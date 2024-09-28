@@ -54,6 +54,8 @@ if (!function_exists('cartTotal')) {
             }
 
             $total += ($productPrice + $sizePrice + $optionsPrice) * $item->qty;
+
+            $total = round($total, 2);
         }
 
         return $total;
@@ -76,6 +78,8 @@ if (!function_exists('productTotal')) {
         }
 
         $total += ($productPrice + $sizePrice + $optionsPrice) * $product->qty;
+
+        $total = round($total, 2);
 
         return $total;
     }

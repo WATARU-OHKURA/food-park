@@ -127,7 +127,7 @@
             //  Caculate the selected size price
             let selectedSize = $('input[name="product_size"]:checked');
             if (selectedSize.length > 0) {
-                slectedSizePrice = parseFloat(selectedSize.data("price"));
+                selectedSizePrice = parseFloat(selectedSize.data("price"));
             }
 
             //  Caculate the selected options price
@@ -138,7 +138,7 @@
 
 
             // Calculate the total price
-            let totalPrice = (basePrice + slectedSizePrice + selectedOptionsPrice) * quantity;
+            let totalPrice = ((basePrice + selectedSizePrice + selectedOptionsPrice) * quantity).toFixed(2);
 
             if ("{{ config('settings.site_currency_icon_position') }}" === "left") {
                 $('#total_price').text("{{ config('settings.site_currency_icon') }}" + totalPrice);
