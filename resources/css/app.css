@@ -2,3 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* その他の CSS ファイルのインポート */
+@import 'frontend/css/all.min.css';
+@import 'frontend/css/bootstrap.min.css';
+@import 'frontend/css/spacing.css';
+@import 'frontend/css/slick.css';
+@import 'frontend/css/nice-select.css';
+@import 'frontend/css/venobox.min.css';
+@import 'frontend/css/animate.css';
+@import 'frontend/css/jquery.exzoom.css';
+@import 'frontend/css/toastr.min.css';
+@import 'frontend/css/style.css';
+@import 'frontend/css/responsive.css';
+@import 'frontend/css/custom.css';

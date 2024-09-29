@@ -24,10 +24,6 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script>
-        var pusherKey = "{{ config('settings.pusher_key') }}";
-        var pusherCluster = "{{ config('settings.pusher_cluster') }}";
-    </script>
     <!-- /END GA -->
     @vite(['resources/js/app.js'])
 </head>
