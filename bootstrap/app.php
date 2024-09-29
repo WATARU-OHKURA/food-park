@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // $middleware->appendToGroup('role', [RoleMiddleware::class]);
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'TrustProxies' => \Illuminate\Http\Middleware\TrustProxies::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

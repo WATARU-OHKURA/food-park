@@ -14,6 +14,13 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/test-secure', function () {
+    return [
+        'isSecure' => request()->isSecure(),
+        'scheme' => request()->getScheme(),
+    ];
+});
+
 /* Admin Auth Routes */
 Route::group(['middleware' => 'guest'], function () {
     Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');

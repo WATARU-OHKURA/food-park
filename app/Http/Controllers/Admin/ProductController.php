@@ -11,11 +11,13 @@ use App\Models\Product;
 use App\Traits\FileUploadTrait;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Middleware\TrustProxies;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Str;
+use Illuminate\Http\Middleware\TrustProxies as Middleware;
 
 class ProductController extends Controller
 {

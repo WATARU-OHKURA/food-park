@@ -27,7 +27,11 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
-        
+
+        if (config('app.env') !== 'local') {
+            URL::forceScheme('https');
+        }
+
         // コンソールコマンド実行時はデータベースアクセスを回避
         if ($this->app->runningInConsole()) {
             return;

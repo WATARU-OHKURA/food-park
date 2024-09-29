@@ -84,6 +84,10 @@ class ProductDataTable extends DataTable
         return $this->builder()
             ->setTableId('product-table')
             ->columns($this->getColumns())
+            ->ajax([
+                'url' => route('admin.product.index'), // 確実にHTTPS URLを生成
+                'type' => 'GET',
+            ])
             ->minifiedAjax()
             //->dom('Bfrtip')
             ->orderBy(0)
@@ -116,7 +120,7 @@ class ProductDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(170)
+                ->width(200)
                 ->addClass('text-center'),
         ];
     }
