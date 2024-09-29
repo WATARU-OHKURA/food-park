@@ -22,6 +22,11 @@ class SettingServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // コンソールコマンド実行時はデータベースアクセスを回避
+        if ($this->app->runningInConsole()) {
+            return;
+        }
+
         $settingsService = $this->app->make(SettingService::class);
         $settingsService->setGlobalSettings();
     }
