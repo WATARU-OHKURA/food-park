@@ -24,11 +24,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(UserSeeder::class);
-        $this->call(WhyChooseUsTitleSeeder::class);
-        Slider::factory(3)->create();
-        WhyChooseUs::factory(3)->create();
-        $this->call(CategorySeeder::class);
-        Product::factory(10)->create();
-        Coupon::factory(3)->create();
+        $this->call(SettingSeeder::class);
+        $this->call(PaymentGatewaySettingSeeder::class);
+        $this->call(SectionTitleSeeder::class);
+
+        // $this->call(WhyChooseUsTitleSeeder::class);
+        // $this->call(CategorySeeder::class);
+        // Slider::factory(3)->create();
+        // WhyChooseUs::factory(3)->create();
+        // Product::factory(10)->create();
+        // Coupon::factory(3)->create();
     }
 }
