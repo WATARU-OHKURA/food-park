@@ -25,7 +25,7 @@
 
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <!-- /END GA -->
-    @vite(['resources/js/app.js'])
+    {{-- @vite(['resources/js/app.js']) --}}
 </head>
 
 <body>
