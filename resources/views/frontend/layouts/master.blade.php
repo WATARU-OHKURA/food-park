@@ -147,7 +147,6 @@
 
     {{-- show dynamic validation message --}}
     <script>
-        toastr.options.progressBar = true;
 
         @if ($errors->any())
             @foreach ($errors->all() as $error)

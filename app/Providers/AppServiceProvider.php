@@ -7,6 +7,7 @@ use DB;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Schema;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+        
         // コンソールコマンド実行時はデータベースアクセスを回避
         if ($this->app->runningInConsole()) {
             return;
