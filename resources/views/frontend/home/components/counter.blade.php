@@ -1,4 +1,4 @@
-<section class="fp__counter" style="background: url({{ asset(@$counter->background) }});">
+<section class="fp__counter" style="background: url({{ @$counter->background }});">
     <div class="fp__counter_overlay pt_100 xs_pt_70 pb_100 xs_pb_70">
         <div class="container">
             <div class="row">

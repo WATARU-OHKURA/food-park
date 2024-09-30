@@ -5,7 +5,7 @@
             <div class="fp__comment pt-4 mt_20">
                 @foreach ($reviews as $review)
                     <div class="fp__single_comment m-0 border-0">
-                        <img src="{{ asset($review->user->avatar) }}" alt="review" class="img-fluid">
+                        <img src="{{ $review->user->avatar }}" alt="review" class="img-fluid">
                         <div class="fp__single_comm_text">
                             <h3><a href="javascript:;">{{ $review->user->name }}</a> <span>{{ date('d M Y', strtotime($review->created_at)) }}
                                 </span>
