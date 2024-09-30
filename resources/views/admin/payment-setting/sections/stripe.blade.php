@@ -13,14 +13,6 @@
                     </select>
                 </div>
 
-                {{-- <div class="form-group">
-                    <label for="">Stripe Account Mode</label>
-                    <select name="stripe_account_mode" id="" class="select3 form-control">
-                        <option @selected(@$paymentGateway['stripe_account_mode'] === 'sandbox') value="sandbox">Sandbox</option>
-                        <option @selected(@$paymentGateway['stripe_account_mode'] === 'live') value="live">Live</option>
-                    </select>
-                </div> --}}
-
                 <div class="form-group">
                     <label for="">Stripe Country Name</label>
                     <select name="stripe_country" id="" class="select3 form-control">
@@ -82,7 +74,7 @@
     <script>
         $(document).ready(function() {
             $('.stripe-preview').css({
-                'background-image': "url({{ asset(@$paymentGateway['stripe_logo']) }})",
+                'background-image': "url({{ @$paymentGateway['stripe_logo'] }})",
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

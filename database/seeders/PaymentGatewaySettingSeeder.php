@@ -29,13 +29,6 @@ class PaymentGatewaySettingSeeder extends Seeder
             array('id' => '22', 'key' => 'stripe_rate', 'value' => '1', 'created_at' => '2024-09-09 05:52:18', 'updated_at' => '2024-09-09 05:52:18'),
             array('id' => '23', 'key' => 'stripe_api_key', 'value' => 'pk_test_51Px1MsRsQbf18wgpUr3wMkGnRWJ4QMde1bxr0UjsTcif6I75NfyKmHJmzxHSUGajQmTkbgMlWlaMuK88vPWmgPHr00WFmwOJGB', 'created_at' => '2024-09-09 05:52:18', 'updated_at' => '2024-09-09 06:53:04'),
             array('id' => '24', 'key' => 'stripe_secret_key', 'value' => 'sk_test_51Px1MsRsQbf18wgpwpfDF80bP83XLlqmSvFiugw2f02Mr4XB79yytvtXGP6U9aJYiotMmbqZVC8Fk0SGwoq30U8D008DyCnUFu', 'created_at' => '2024-09-09 05:52:18', 'updated_at' => '2024-09-09 06:53:04'),
-            array('id' => '25', 'key' => 'razorpay_logo', 'value' => '/uploads/media_66deeebb28f64.webp', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:48:59'),
-            array('id' => '26', 'key' => 'razorpay_status', 'value' => '1', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:48:46'),
-            array('id' => '27', 'key' => 'razorpay_country', 'value' => 'IN', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:48:46'),
-            array('id' => '28', 'key' => 'razorpay_currency', 'value' => 'INR', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:48:46'),
-            array('id' => '29', 'key' => 'razorpay_rate', 'value' => '0.59', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:48:46'),
-            array('id' => '30', 'key' => 'razorpay_api_key', 'value' => 'rzp_test_K7CipNQYyyMPiS', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:54:23'),
-            array('id' => '31', 'key' => 'razorpay_secret_key', 'value' => 'zSBmNMorJrirOrnDrbOd1ALO', 'created_at' => '2024-09-09 12:48:46', 'updated_at' => '2024-09-09 12:54:23')
         );
 
         \DB::table('payment_gateway_settings')->insert($payment_gateway_settings);

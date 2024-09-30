@@ -79,7 +79,7 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
 
-        $imagePath = $this->uploadImage($request, 'image', $blog->image);
+        $imagePath = $this->uploadImage($request, 'image');
 
         $blog->image = !empty($imagePath) ? $imagePath : $blog->image;
         $blog->title = $request->title;
@@ -91,7 +91,7 @@ class BlogController extends Controller
         $blog->status = $request->status;
         $blog->save();
 
-        toastr()->success('Created Successfully');
+        toastr()->success('Updated Successfully');
 
         return to_route('admin.blog.index');
     }
@@ -103,7 +103,6 @@ class BlogController extends Controller
     {
         try {
             $blog = Blog::findOrFail($id);
-            $this->removeImage($blog->image);
             $blog->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {

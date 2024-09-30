@@ -104,7 +104,7 @@
     <script>
         $(document).ready(function(){
             $('.image-preview').css({
-                'background-image': 'url({{ asset(@$counter->background) }})',
+                'background-image': 'url({{ @$counter->background }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

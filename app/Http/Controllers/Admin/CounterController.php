@@ -21,7 +21,7 @@ class CounterController extends Controller
 
     function update(CounterUpdateRequest $request) {
 
-        $imagePath = $this->uploadImage($request, 'background', $request->old_image);
+        $imagePath = $this->uploadImage($request, 'background');
 
         Counter::updateOrCreate(
             ['id' => 1],

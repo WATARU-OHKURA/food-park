@@ -43,9 +43,9 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         /** handle image file */
-        $imagePath = $this->uploadImage($request, 'avatar', $user->avatar);
+        $imageCode = $this->uploadImage($request, 'avatar');
 
-        $user->avatar = $imagePath;
+        $user->avatar = $imageCode;
         $user->save();
 
         return response(['status' => 'success', 'message' => 'Avatar Updated Successfully']);

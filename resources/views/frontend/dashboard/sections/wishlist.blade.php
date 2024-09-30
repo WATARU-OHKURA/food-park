@@ -8,7 +8,7 @@
                     <div class="col-xl-4 col-sm-6 col-lg-6">
                         <div class="fp__menu_item">
                             <div class="fp__menu_item_img">
-                                <img src="{{ asset($item->product->thumb_image) }}" alt="menu"
+                                <img src="{{ $item->product->thumb_image }}" alt="menu"
                                     class="img-fluid w-100">
                                 <a class="category" href="#">{{ $item->product->category->name }}</a>
                             </div>

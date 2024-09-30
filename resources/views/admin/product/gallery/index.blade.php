@@ -45,7 +45,7 @@
                     <tbody>
                         @foreach ($images as $image)
                             <tr>
-                                <td><img width="150px" src="{{ asset($image->image) }}" alt=""></td>
+                                <td><img width="150px" src="{{ $image->image }}" alt=""></td>
                                 <td>
                                     <a href="{{ route('admin.product-gallery.destroy', $image->id) }}"
                                         class='btn btn-danger mx-2 delete-item'>

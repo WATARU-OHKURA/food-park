@@ -105,7 +105,7 @@
     <script>
         $(document).ready(function(){
             $('.image-preview').css({
-                'background-image': 'url({{ asset($product->thumb_image) }})',
+                'background-image': 'url({{ $product->thumb_image }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

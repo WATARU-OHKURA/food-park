@@ -13,7 +13,7 @@
     <!--=============================
                         BREADCRUMB START
                     ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset(config('settings.breadcrumb')) }});">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -40,7 +40,7 @@
                 <div class="col-xl-8 col-lg-8">
                     <div class="fp__blog_det_area">
                         <div class="fp__blog_details_img wow fadeInUp" data-wow-duration="1s">
-                            <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}" class="imf-fluid w-100">
+                            <img src="{{ $blog->image }}" alt="{{ $blog->title }}" class="imf-fluid w-100">
                         </div>
                         <div class="fp__blog_details_text wow fadeInUp" data-wow-duration="1s">
                             <ul class="details_bloger d-flex flex-wrap">
@@ -78,7 +78,7 @@
                         @if ($previousBlog)
                             <li>
                                 <a href="{{ route('blog.show', $previousBlog->slug) }}">
-                                    <img src="{{ asset($previousBlog->image) }}" alt="button img" class="img-fluid w-100">
+                                    <img src="{{ $previousBlog->image }}" alt="button img" class="img-fluid w-100">
                                     <p>{{ truncate($previousBlog->title, 60) }}
                                         <span> <i class="far fa-long-arrow-left"></i> Previous</span>
                                     </p>
@@ -91,7 +91,7 @@
                                     <p>{{ truncate($nextBlog->title, 60) }}
                                         <span>next <i class="far fa-long-arrow-right"></i></span>
                                     </p>
-                                    <img src="{{ asset($nextBlog->image) }}" alt="button img" class="img-fluid w-100">
+                                    <img src="{{ $nextBlog->image }}" alt="button img" class="img-fluid w-100">
                                 </a>
                             </li>
                         @endif
@@ -154,7 +154,7 @@
                             <ul>
                                 @foreach ($latestBlogs as $blog)
                                     <li>
-                                        <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}"
+                                        <img src="{{ $blog->image }}" alt="{{ $blog->title }}"
                                             class="img-fluid w-100">
                                         <div class="text">
                                             <a

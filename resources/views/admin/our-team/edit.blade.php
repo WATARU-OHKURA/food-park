@@ -84,7 +84,7 @@
     <script>
         $(document).ready(function() {
             $('.image-preview').css({
-                'background-image': 'url({{ asset($our_team->image) }})',
+                'background-image': 'url({{ $our_team->image }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

@@ -19,7 +19,7 @@
                     <div class="fp__single_testimonial">
                         <div class="fp__testimonial_header d-flex flex-wrap align-items-center">
                             <div class="img">
-                                <img src="{{ asset($testimonial->image) }}" alt="clients" class="img-fluid w-100">
+                                <img src="{{ $testimonial->image }}" alt="clients" class="img-fluid w-100">
                             </div>
                             <div class="text">
                                 <h4>{{ $testimonial->name }}</h4>

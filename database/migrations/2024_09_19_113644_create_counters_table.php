@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('counters', function (Blueprint $table) {
             $table->id();
-            $table->string('background');
+            $table->longText('background');
             $table->string('counter_icon_one');
             $table->string('counter_count_one');
             $table->string('counter_name_one');

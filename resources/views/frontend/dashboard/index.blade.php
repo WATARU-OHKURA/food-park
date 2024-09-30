@@ -2,9 +2,9 @@
 
 @section('content')
     <!--=============================
-                                BREADCRUMB START
-                            ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset(config('settings.breadcrumb')) }});">
+                                    BREADCRUMB START
+                                ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -18,13 +18,13 @@
         </div>
     </section>
     <!--=============================
-                                BREADCRUMB END
-                            ==============================-->
+                                    BREADCRUMB END
+                                ==============================-->
 
 
     <!--=========================
-                                DASHBOARD START
-                            ==========================-->
+                                    DASHBOARD START
+                                ==========================-->
     <section class="fp__dashboard mt_120 xs_mt_90 mb_100 xs_mb_70">
         <div class="container">
             <div class="fp__dashboard_area">
@@ -33,7 +33,11 @@
                         <div class="fp__dashboard_menu">
                             <div class="dasboard_header">
                                 <div class="dasboard_header_img">
-                                    <img src="{{ auth()->user()->avatar }}" alt="user" class="img-fluid w-100">
+                                    @if (auth()->user()->avatar)
+                                        <img src="{{ auth()->user()->avatar }}" alt="user" class="img-fluid w-100">
+                                    @else
+                                        <i class="fas fa-user" style="font-size:100px; margin-top: 16px"></i>
+                                    @endif
                                     <label for="upload"><i class="far fa-camera"></i></label>
                                     <form id="avatar_form" action="" method="POST">
 
@@ -197,8 +201,8 @@
     </div>
     <!-- CART POPUT END -->
     <!--=========================
-                                DASHBOARD END
-                            ==========================-->
+                                    DASHBOARD END
+                                ==========================-->
 @endsection
 
 @push('scripts')

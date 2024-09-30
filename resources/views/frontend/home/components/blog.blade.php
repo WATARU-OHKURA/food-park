@@ -17,7 +17,7 @@
                     <div class="col-xl-4 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__single_blog">
                             <a href="{{ route('blog.show', $blog->slug) }}" class="fp__single_blog_img">
-                                <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}" class="img-fluid w-100">
+                                <img src="{{ $blog->image }}" alt="{{ $blog->title }}" class="img-fluid w-100">
                             </a>
                             <div class="fp__single_blog_text">
                                 <a class="category" href="{{ route('blogs', ['category' => $blog->category->slug]) }}">{{ $blog->category->name }}</a>

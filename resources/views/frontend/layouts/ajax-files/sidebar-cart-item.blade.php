@@ -4,7 +4,7 @@
 @foreach (Cart::content() as $cartProduct)
     <li>
         <div class="menu_cart_img">
-            <img src="{{ asset($cartProduct->options->product_info['image']) }}" alt="menu" class="img-fluid w-100">
+            <img src="{{ $cartProduct->options->product_info['image'] }}" alt="menu" class="img-fluid w-100">
         </div>
         <div class="menu_cart_text">
             <a class="title"

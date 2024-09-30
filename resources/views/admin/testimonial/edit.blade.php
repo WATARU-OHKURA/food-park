@@ -76,7 +76,7 @@
     <script>
         $(document).ready(function(){
             $('.image-preview').css({
-                'background-image': 'url({{ asset($testimonial->image) }})',
+                'background-image': 'url({{ $testimonial->image }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

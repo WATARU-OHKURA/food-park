@@ -63,7 +63,7 @@ class BannerSliderController extends Controller
      */
     public function update(UpdateBannerSliderRequest $request, BannerSlider $banner_slider)
     {
-        $imagePath = $this->uploadImage($request, 'image', $request->old_image);
+        $imagePath = $this->uploadImage($request, 'image');
 
         $banner_slider->banner = !empty($imagePath) ? $imagePath : $request->old_image;
         $banner_slider->title = $request->title;
@@ -83,7 +83,6 @@ class BannerSliderController extends Controller
     public function destroy(BannerSlider $banner_slider)
     {
         try {
-            $this->removeImage($banner_slider->banner);
             $banner_slider->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {

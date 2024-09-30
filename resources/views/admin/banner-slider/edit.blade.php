@@ -58,7 +58,7 @@
     <script>
         $(document).ready(function() {
             $('.image-preview').css({
-                'background-image': 'url({{ asset($banner_slider->banner) }})',
+                'background-image': 'url({{ $banner_slider->banner }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

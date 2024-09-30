@@ -19,7 +19,7 @@
                 <div class="col-xl-3 wow fadeInUp" data-wow-duration="1s">
                     <div class="fp__single_team">
                         <div class="fp__single_team_img">
-                            <img src="{{ asset($member->image) }}" alt="team" class="img-fluid w-100">
+                            <img src="{{ $member->image }}" alt="team" class="img-fluid w-100">
                         </div>
                         <div class="fp__single_team_text">
                             <h4>{{ $member->name }}</h4>

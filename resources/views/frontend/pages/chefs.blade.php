@@ -4,7 +4,7 @@
     <!--=============================
                     BREADCRUMB START
                 ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -32,7 +32,7 @@
                     <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__single_team">
                             <div class="fp__single_team_img">
-                                <img src="{{ asset($member->image) }}" alt="team" class="img-fluid w-100">
+                                <img src="{{ $member->image }}" alt="team" class="img-fluid w-100">
                             </div>
                             <div class="fp__single_team_text">
                                 <h4>{{ $member->name }}</h4>

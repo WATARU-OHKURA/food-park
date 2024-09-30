@@ -79,7 +79,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
 
         /** Handle Image Upload */
-        $imagePath = $this->uploadImage($request, 'image', $slider->image);
+        $imagePath = $this->uploadImage($request, 'image');
 
         $slider->image = !empty($imagePath) ? $imagePath : $slider->image;
         $slider->offer = $request->offer;
@@ -102,7 +102,6 @@ class SliderController extends Controller
     {
         try {
             $slider = Slider::findOrFail($id);
-            $this->removeImage($slider->image);
             $slider->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {

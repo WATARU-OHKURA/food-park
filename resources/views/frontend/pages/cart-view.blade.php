@@ -2,7 +2,7 @@
 
 @section('content')
     <!--=========== BREADCRUMB START=============-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -56,7 +56,7 @@
                                     @foreach (Cart::content() as $product)
                                         <tr>
                                             <td class="fp__pro_img">
-                                                <img src="{{ asset($product->options->product_info['image']) }}"
+                                                <img src="{{ $product->options->product_info['image'] }}"
                                                     alt="product" class="img-fluid w-100">
                                             </td>
 

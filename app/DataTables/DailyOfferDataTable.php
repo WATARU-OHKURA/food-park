@@ -32,7 +32,7 @@ class DailyOfferDataTable extends DataTable
                 return $query->product->name;
             })
             ->addColumn('image', function ($query) {
-                return '<img width="50px" src="' . asset($query->product->thumb_image) . '">';
+                return '<img width="50px" src="' . $query->product->thumb_image . '">';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status == 1) {

@@ -23,7 +23,7 @@ class ProductGalleryController extends Controller
         $product = Product::findOrFail($productId);
         return view('admin.product.gallery.index', compact('product', 'images'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -53,7 +53,6 @@ class ProductGalleryController extends Controller
     {
         try {
             $image = ProductGallery::findOrFail($id);
-            $this->removeImage($image->image);
             $image->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {

@@ -4,7 +4,7 @@
     <!--=============================
                             BREADCRUMB START
                         ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset(config('settings.breadcrumb')) }});">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -51,7 +51,7 @@
                     <div class="col-xl-4 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
                         <div class="fp__single_blog">
                             <a href="{{ route('blog.show', $blog->slug) }}" class="fp__single_blog_img">
-                                <img src="{{ asset(@$blog->image) }}" alt="{{ $blog->title }}" class="img-fluid w-100">
+                                <img src="{{ @$blog->image }}" alt="{{ $blog->title }}" class="img-fluid w-100">
                             </a>
                             <div class="fp__single_blog_text">
                                 <a class="category" href="#">{{ @$blog->category->name }}</a>

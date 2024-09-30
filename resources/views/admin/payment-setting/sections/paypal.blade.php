@@ -83,7 +83,7 @@
     <script>
         $(document).ready(function(){
             $('.paypal-preview').css({
-                'background-image': "url({{ asset(@$paymentGateway['paypal_logo']) }})",
+                'background-image': "url({{ @$paymentGateway['paypal_logo'] }})",
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

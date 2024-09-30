@@ -53,22 +53,22 @@
     <script>
         $(document).ready(function() {
             $('.logo').css({
-                'background-image': 'url({{ asset(config("settings.logo")) }})',
+                'background-image': 'url({{ config("settings.logo") }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })
             $('.footer_logo').css({
-                'background-image': 'url({{ asset(config("settings.footer_logo")) }})',
+                'background-image': 'url({{ config("settings.footer_logo") }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })
             $('.favicon').css({
-                'background-image': 'url({{ asset(config("settings.favicon")) }})',
+                'background-image': 'url({{ config("settings.favicon") }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })
             $('.breadcrumb').css({
-                'background-image': 'url({{ asset(config("settings.breadcrumb")) }})',
+                'background-image': 'url({{ config("settings.breadcrumb") }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

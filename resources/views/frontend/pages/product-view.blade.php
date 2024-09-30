@@ -2,7 +2,7 @@
 
 @section('content')
     <!--============BREADCRUMB START===========-->
-    <section class="fp__breadcrumb" style="background: url({{ asset('frontend/images/counter_bg.jpg') }});">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -27,13 +27,13 @@
                         <div class="exzoom_img_box fp__menu_details_images">
                             <ul class='exzoom_img_ul'>
                                 <li>
-                                    <img class="zoom img-fluid w-100" src="{{ asset($product->thumb_image) }}"
+                                    <img class="zoom img-fluid w-100" src="{{ $product->thumb_image }}"
                                         alt="product">
                                 </li>
 
                                 @foreach ($product->productImages as $image)
                                     <li>
-                                        <img class="zoom img-fluid w-100" src="{{ asset($image->image) }}" alt="product">
+                                        <img class="zoom img-fluid w-100" src="{{ $image->image }}" alt="product">
                                     </li>
                                 @endforeach
                             </ul>

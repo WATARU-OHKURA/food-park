@@ -29,7 +29,7 @@ class BlogDataTable extends DataTable
                 return $edit . $delete;
             })
             ->addColumn('image', function ($query) {
-                return '<img width="50px" src="' . asset($query->image) . '">';
+                return '<img width="50px" src="' . $query->image . '">';
             })
             ->addColumn('category', function($query){
                 return $query->category->name;

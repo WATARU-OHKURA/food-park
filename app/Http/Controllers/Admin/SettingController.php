@@ -78,8 +78,6 @@ class SettingController extends Controller
         foreach($validatedData as $key => $value){
             $imagePath = $this->uploadImage($request, $key, );
             if(!empty($imagePath)){
-                $oldPath = config('settings.'.$key);
-                $this->removeImage($oldPath);
                 Setting::updateOrCreate(
                     ['key' => $key],
                     ['value' => $imagePath],

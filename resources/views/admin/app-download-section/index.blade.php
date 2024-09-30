@@ -88,13 +88,13 @@
 
         $(document).ready(function(){
             $('.image-preview').css({
-                'background-image': 'url({{ asset(@$appSection->image) }})',
+                'background-image': 'url({{ @$appSection->image }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })
 
             $('.bg-prev').css({
-                'background-image': 'url({{ asset(@$appSection->background) }})',
+                'background-image': 'url({{ @$appSection->background }})',
                 'background-size': 'cover',
                 'background-position': 'center center'
             })

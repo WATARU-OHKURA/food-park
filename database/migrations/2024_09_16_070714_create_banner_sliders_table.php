@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('sub_title');
             $table->string('url');
-            $table->string('banner');
+            $table->longText('banner');
             $table->boolean('status');
             $table->timestamps();
         });

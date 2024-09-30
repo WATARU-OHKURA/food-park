@@ -4,7 +4,7 @@
     <!--=============================
                         BREADCRUMB START
                     ==============================-->
-    <section class="fp__breadcrumb" style="background: url({{ asset(config('settings.breadcrumb')) }});">
+    <section class="fp__breadcrumb" style="background: url({{ config('settings.breadcrumb') }});">
         <div class="fp__breadcrumb_overlay">
             <div class="container">
                 <div class="fp__breadcrumb_text">
@@ -33,7 +33,7 @@
                         <div class="fp__single_testimonial">
                             <div class="fp__testimonial_header d-flex flex-wrap align-items-center">
                                 <div class="img">
-                                    <img src="{{ asset($testimonial->image) }}" alt="clients" class="img-fluid w-100">
+                                    <img src="{{ $testimonial->image }}" alt="clients" class="img-fluid w-100">
                                 </div>
                                 <div class="text">
                                     <h4>{{ $testimonial->name }}</h4>

@@ -75,7 +75,7 @@ class TestimonialController extends Controller
     {
         $testimonial = Testimonial::findOrFail($id);
 
-        $imagePath = $this->uploadImage($request, 'image', $testimonial->image);
+        $imagePath = $this->uploadImage($request, 'image');
 
         $testimonial->image = !empty($imagePath) ? $imagePath : $testimonial->image;
         $testimonial->name = $request->name;
@@ -118,7 +118,6 @@ class TestimonialController extends Controller
     {
         try {
             $testimonial = Testimonial::findOrFail($id);
-            $this->removeImage($testimonial->image);
             $testimonial->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {

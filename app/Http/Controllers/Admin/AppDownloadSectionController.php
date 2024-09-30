@@ -22,8 +22,8 @@ class AppDownloadSectionController extends Controller
 
     function store(AppDownloadSectionCreateRequest $request): RedirectResponse
     {
-        $imagePath = $this->uploadImage($request, 'image', $request->old_image);
-        $backgroundPath = $this->uploadImage($request, 'background', $request->old_bg);
+        $imagePath = $this->uploadImage($request, 'image');
+        $backgroundPath = $this->uploadImage($request, 'background');
 
         AppDownloadSection::updateOrCreate(
             ['id' => 1],

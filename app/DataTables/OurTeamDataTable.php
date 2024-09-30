@@ -29,7 +29,7 @@ class OurTeamDataTable extends DataTable
                 return $edit . $delete;
             })
             ->addColumn('image', function ($query) {
-                return '<img width="70px" src="' . asset($query->image) . '">';
+                return '<img width="70px" src="' . $query->image . '">';
             })
             ->addColumn('status', function ($query) {
                 if ($query->status == 1) {

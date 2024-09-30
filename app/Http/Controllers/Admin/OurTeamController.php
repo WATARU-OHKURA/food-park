@@ -74,7 +74,7 @@ class OurTeamController extends Controller
      */
     public function update(OurTeamUpdateRequest $request, OurTeam $our_team): RedirectResponse
     {
-        $imagePath = $this->uploadImage($request, 'image', $request->old_image);
+        $imagePath = $this->uploadImage($request, 'image');
 
         $our_team->image = !empty($imagePath) ? $imagePath : $request->old_image;
         $our_team->name = $request->name;
@@ -118,7 +118,6 @@ class OurTeamController extends Controller
     public function destroy(OurTeam $our_team): Response
     {
         try {
-            $this->removeImage($our_team->image);
             $our_team->delete();
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
         } catch (\Exception $e) {

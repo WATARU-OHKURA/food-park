@@ -59,7 +59,7 @@ class ProductDataTable extends DataTable
                 }
             })
             ->addColumn('image', function ($query) {
-                return '<img width="60px" src="' . asset($query->thumb_image) . '">';
+                return '<img width="60px" src="' . $query->thumb_image . '">';
             })
             ->addColumn('category', function ($query) {
                 return $query->category->name;

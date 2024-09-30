@@ -4,18 +4,10 @@
     <input type="hidden" name="product_id" value="{{ $product->id }}">
 
     <div class="fp__cart_popup_img">
-        <img src="{{ asset($product->thumb_image) }}" alt="{{ $product->name }}" class="img-fluid w-100">
+        <img src="{{ $product->thumb_image }}" alt="{{ $product->name }}" class="img-fluid w-100">
     </div>
     <div class="fp__cart_popup_text">
         <a href="{{ route('product.show', $product->slug) }}" class="title">{!! $product->name !!}</a>
-        <p class="rating">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
-            <i class="far fa-star"></i>
-            <span>(201)</span>
-        </p>
         <h4 class="price">
             @if ($product->offer_price > 0)
                 {{ currencyPosition($product->offer_price) }}

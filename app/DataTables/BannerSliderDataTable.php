@@ -29,7 +29,7 @@ class BannerSliderDataTable extends DataTable
                 return $edit . $delete;
             })
             ->addColumn('banner', function ($query) {
-                return '<img width="100px" src="' . asset($query->banner) . '">';
+                return '<img width="100px" src="' . $query->banner . '">';
             })
             ->rawColumns(['action', 'banner'])
             ->setRowId('id');

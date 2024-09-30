@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('our_teams', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->longText('image');
             $table->string('name');
             $table->string('title');
             $table->string('fb')->nullable();

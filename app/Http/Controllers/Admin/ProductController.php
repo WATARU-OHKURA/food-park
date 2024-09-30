@@ -95,7 +95,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         // Handle Image File
-        $imagePath = $this->uploadImage($request, 'image', $product->thumb_image);
+        $imagePath = $this->uploadImage($request, 'image');
         $product->thumb_image = !empty($imagePath) ? $imagePath : $product->thumb_image;
 
         $product->slug = generateUniqueSlug('Product', $request->name, $product->slug);
@@ -126,7 +126,6 @@ class ProductController extends Controller
     {
         try {
             $product = Product::findOrFail($id);
-            $this->removeImage($product->thumb_image);
             $product->delete();
 
             return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
