@@ -19,7 +19,7 @@
                             @if ($review->status == 1)
                             <span class="status active">Active</span>
                             @else
-                            <span class="status inactive">Peending</span>
+                            <span class="status inactive">Pending</span>
                             @endif
                         </div>
                     </div>
