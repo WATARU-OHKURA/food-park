@@ -125,15 +125,19 @@
                                     </h3>
                                 </div>
                             </div>
+                            <ul class="details_button_area d-flex flex-wrap">
+                                @if ($product->quantity === 0)
+                                    <li><a class="common_btn bg-danger" href="javascript:;">Stock out</a></li>
+                                @else
+                                    <li><a class="wishlist me-3" href="javascript:;" onclick="addToWishlist('{{ $product->id }}')">
+                                        <i class="far fa-heart"></i></a>
+                                    </li>
+                                    <li><button type="submit" class="common_btn modal_cart_botton">Add to Cart</button></li>
+                                @endif
+                            </ul>
                         </form>
 
-                        <ul class="details_button_area d-flex flex-wrap">
-                            @if ($product->quantity === 0)
-                                <li><a class="common_btn bg-danger" href="javascript:;">Stock out</a></li>
-                            @else
-                                <li><a class="wishlist" href="#"><i class="far fa-heart"></i></a></li>
-                            @endif
-                        </ul>
+
                     </div>
                 </div>
                 <div class="col-12 wow fadeInUp" data-wow-duration="1s">
