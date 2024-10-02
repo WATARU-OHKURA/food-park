@@ -147,18 +147,21 @@
 
     {{-- show dynamic validation message --}}
     <script>
+
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}")
             @endforeach
         @endif
 
-        // Ser csrf ajax header
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+        $(document).ready(function(){
+            // Ser csrf ajax header
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
     </script>
 
     {{-- Load global js  --}}
