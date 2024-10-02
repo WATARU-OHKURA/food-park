@@ -169,8 +169,16 @@
                     toastr.success(response.message);
                 },
                 error: function(xhr, status, error) {
-                    let errorMessage = xhr.responseJSON.message;
-                    toastr.error(errorMessage);
+                    let errorMessage = 'An error occurred';
+
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    } else if (xhr.responseText) {
+                        // サーバーからのレスポンスがHTMLの場合、その内容を表示
+                        errorMessage = xhr.responseText;
+                    }
+
+                    toastr.error(errorMessage);;
                 },
                 complete: function() {
                     $('.modal_cart_botton').html('add to cart');
